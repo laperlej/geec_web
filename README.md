@@ -1,7 +1,11 @@
-# geec_web
+# Django_base
 
 ###installation
+```
 pip -r requirements.txt
-python manage.py <dosomething> --settings=geec_web.settings.XYZ
+```
 
-
+###Usage
+```
+python manage.py <do something> --settings=geec_web.settings.XYZ
+```
