@@ -1,0 +1,64 @@
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+#content_search {
+  margin: 6px 6px 0px;
+  overflow: auto;
+  width: 100%
+}
+
+#content_table {
+  overflow: auto;
+  width: 100%
+}
+
+#select_all {
+  margin-left: 13px;
+}
+
+#column_select {
+  width: 160px;
+  float: left;
+}
+
+#search_bar {
+  width:320px;
+  float:left;
+  margin-left: 6px;
+}
+
+#submit_panel {
+  border-top: solid;
+  border-top-width: 2px;
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+  height: 50px;
+  width: 100%;
+  background: #FFF;
+}
+
+#submit {
+  float: right;
+  margin: 7px 30px 0px 0px;
+}
+
+#count_wrapper {
+   float: right;
+   margin: 11px 10px;
+}
+
+#bw_table {
+  border-spacing: 0px;
+  width: 100%
+}
+
+/*remove hover effect from child rows*/
+table.dataTable.display tbody tr.child {
+  background: white;
+}
+table.dataTable.display tbody tr table tr:hover {
+  background: none;
+}

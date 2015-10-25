@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+  <title>BigWig Table</title>
+  <!--jQuery-->
+  <script defer type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <!--DataTables-->
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.css">
+  <script defer type="text/javascript" src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.js"></script>
+  <!--DataTables Plugin: FixedHeader-->
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/fixedheader/3.0.0/css/fixedHeader.dataTables.min.css">
+  <script defer type="text/javascript" src="//cdn.datatables.net/fixedheader/3.0.0/js/dataTables.fixedHeader.min.js"></script>
+  <!--Bootstrap-->
+  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <script defer type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+  <!--self-->
+  <link rel="stylesheet" type="text/css" href="{% static "table/table.css" %}">
+  <script>var ihec_json = "{% static "table/hg19.json" %}"</script>
+  <script defer type="text/javascript" src="{% static "table/table.js" %}"></script>
+</head>
+
+<body>
+  {% block content %}
+  {% endblock %}
+</body>
+</html>

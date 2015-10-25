@@ -1,0 +1,43 @@
+{% extends "table/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div id="content">
+  <div id="content_search">
+    <!--filters for table-->
+    <!--Select a column to search-->
+    <select class="form-control" id="column_select">
+      <option selected="selected" value='-1'>Any</option>
+      <option value="1">Assay</option>
+      <option value="2">Assay Category</option>
+      <option value="3">Cell Type</option>
+      <option value="4">Cell Type Category</option>
+    </select>
+    <!--Search bar-->
+    <input type="text" class="form-control" placeholder="Search" id="search_bar">
+  </div>
+  <div id="content_table">
+    <!--main table-->
+    <table id="bw_table" class="display compact nowrap">
+      <thead id="table_header">
+        <tr>
+          <th class="dt-center"><input id="select_all" type="checkbox"></th>
+          <th>Assay</th>
+          <th>Assay Category</th>
+          <th>Cell Type</th>
+          <th>Cell Type Category</th>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+  <div id="submit_panel">
+    <!--footer to submit selection-->
+    <button id="submit" class="btn btn-primary btn-sm disabled">Submit</button>
+    <span id='count_wrapper'><span id="select_count">0</span> datasets selected</span>
+  </div>
+</div>
+
+{% endblock %}
