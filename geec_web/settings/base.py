@@ -18,6 +18,9 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 if not os.path.exists(os.path.join(BASE_DIR, 'deploy')):
     os.makedirs(os.path.join(BASE_DIR, 'deploy'))
 
+if not os.path.exists(os.path.join(BASE_DIR, 'static')):
+    os.makedirs(os.path.join(BASE_DIR, 'static'))
+
 #add to PYTHONPATH to find python modules
 import sys
 
