@@ -1,22 +1,22 @@
 $(document).ready(function() {
   //initialise DataTables plugin
-  var main_table = $('#bw_table').DataTable( {
+  var main_table = $('#bw-table').DataTable( {
     //remove everything but the main table
     "paging": false,
     "info": false,
     "searching": true,
     "scrollCollapse": true,
     "fixedHeader": true,
-    "sScrollY" : new_table_height(),
-    'sDom': '<#content_search>Ht',
+    "sScrollY" : newTableHeight(),
+    'sDom': '<#content-search>Ht',
     //only load entries the user can see
     "deferRender": true,
     //display message while loading
     "processing": true,
     //load json static file
     "ajax": {
-      "url": ihec_json,
-      "table": '#bw_table',
+      "url": ihecJson,
+      "table": '#bw-table',
       "dataSrc": "dataset"
     },
     //associate json elements to columns(in order)
@@ -37,11 +37,11 @@ $(document).ready(function() {
         //more info
         {
          'width': 1,
-         'className': 'more_info dt-center',
+         'className': 'more-info dt-center',
          'searchable': false,
          'orderable': false,
          'render': function () {
-          return '<span class="glyphicon glyphicon-triangle-top"></span>'
+          return '<span class="glyphicon glyphicon-triangle-top"></span>';
         }
       },
       ],
@@ -51,44 +51,44 @@ $(document).ready(function() {
 
 
   //scripts for selection
-  $('#select_all').on("click", function(e) {
+  $('#select-all').on("click", function(e) {
     if (this.checked) {
-      select_all();
+      selectAll();
     } else {
-      unselect_all();
+      unselectAll();
     }
-    update_select_count()
-  })
+    updateSelectCount();
+  });
 
-  function select_all(){
+  function selectAll(){
     $(':checkbox').prop('checked', true);
   }
 
-  function unselect_all(){
+  function unselectAll(){
     $(':checkbox').prop('checked', false);
   }
 
-  $('#bw_table').on('click', 'input[type="checkbox"]', function(event){
+  $('#bw-table').on('click', 'input[type="checkbox"]', function(event){
       //important: must be before row expension
       event.stopPropagation();
-      update_select_count();
-    })
+      updateSelectCount();
+    });
 
-  function update_select_count(){
+  function updateSelectCount(){
     var len = main_table.rows(':has(:checkbox:checked)').data().length;
-    $('#select_count').text(len);
-    if (len == 0) {
-      $('#submit').addClass('disabled')
+    $('#select-count').text(len);
+    if (len === 0) {
+      $('#submit').addClass('disabled');
     } else {
-      $('#submit').removeClass('disabled')
+      $('#submit').removeClass('disabled');
     }
   }
 
   //scripts for row expansion
-  $('#bw_table').on("click", 'tbody tr', function() {
+  $('#bw-table').on("click", 'tbody tr', function() {
       //important: must be before row selection
-      var tr = $(this)
-      var row = main_table.row(tr)
+      var tr = $(this);
+      var row = main_table.row(tr);
       //toggle arrow icon
       tr.find('span:first').toggleClass('glyphicon-triangle-top glyphicon-triangle-bottom');
       if ( row.child.isShown() ) {
@@ -98,7 +98,7 @@ $(document).ready(function() {
           // open row if closed
           row.child(format(row.data()), 'child').show();
         }
-      })
+      });
 
 
   //child table to generate on expension
@@ -121,35 +121,35 @@ $(document).ready(function() {
 
 
   //scripts for search
-  var old_column = "-1"
-  $('#column_select').on('change', function() {
-    clear_search(old_column);
-    old_column = $(this).val()
-  })
+  var old_column = "-1";
+  $('#column-select').on('change', function() {
+    clearSearch(old_column);
+    old_column = $(this).val();
+  });
 
-  $('#search_bar').on('keyup paste change', function() {
-    update_search();
-  })
+  $('#search-bar').on('keyup paste change', function() {
+    updateSearch();
+  });
 
-  function clear_search(col_idx) {
-    $('#search_bar').val('');
-    if (col_idx == "-1") {
+  function clearSearch(colIdx) {
+    $('#search-bar').val('');
+    if (colIdx == "-1") {
       //if -1(any), clear table filter
       main_table.search('').draw();
     } else {
       //otherwise clear filter on old column
-      main_table.column(col_idx).search('').draw();
+      main_table.column(colIdx).search('').draw();
     }
   }
 
-  function update_search() {
-    col_idx = $('#column_select').val();
-    if (col_idx == "-1") {
+  function updateSearch() {
+    colIdx = $('#column-select').val();
+    if (colIdx == "-1") {
       //if -1(any), search on all columns
-      main_table.search($('#search_bar').val()).draw();
+      main_table.search($('#search-bar').val()).draw();
     } else {
       //otherwise search on specified column
-      main_table.column(col_idx).search($('#search_bar').val()).draw();
+      main_table.column(colIdx).search($('#search-bar').val()).draw();
     }
   }
 
@@ -157,21 +157,21 @@ $(document).ready(function() {
   //scripts for submit button
   $('#submit').on('click', function() {
     alert('hello');
-  })
+  });
 
   //handle scrolling
   $(window).bind('resize', function () {
-    var NewHeight = new_table_height();
-    $('.dataTables_scroll:eq(2)').css('height', NewHeight);
-    $('.dataTables_scrollBody:eq(2)').css('max-height', NewHeight);
-    var oTable = $('#bw_table').dataTable();
-    oTable.fnSettings().oScroll.sY = NewHeight;
-    oTable.fnDraw();
+    var new_height = newTableHeight();
+    $('.dataTables_scroll:eq(2)').css('height', new_height);
+    $('.dataTables_scrollBody:eq(2)').css('max-height', new_height);
+    var table = $('#bw-table').dataTable();
+    table.fnSettings().oScroll.sY = new_height;
+    table.fnDraw();
   });
 
-  function new_table_height(){
+  function newTableHeight(){
     //adjust whenever layout is changed
     return $(document).height() - 121;
   }
 
-})
+});

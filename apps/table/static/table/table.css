@@ -3,33 +3,33 @@ body {
   padding: 0px;
 }
 
-#content_search {
+#content-search {
   margin: 6px 6px 0px;
   overflow: auto;
   width: 100%
 }
 
-#content_table {
+#content-table {
   overflow: auto;
   width: 100%
 }
 
-#select_all {
+#select-all {
   margin-left: 13px;
 }
 
-#column_select {
+#column-select {
   width: 160px;
   float: left;
 }
 
-#search_bar {
+#search-bar {
   width:320px;
   float:left;
   margin-left: 6px;
 }
 
-#submit_panel {
+#submit-panel {
   border-top: solid;
   border-top-width: 2px;
   position: fixed;
@@ -45,12 +45,12 @@ body {
   margin: 7px 30px 0px 0px;
 }
 
-#count_wrapper {
+#count-wrapper {
    float: right;
    margin: 11px 10px;
 }
 
-#bw_table {
+#bw-table {
   border-spacing: 0px;
   width: 100%
 }

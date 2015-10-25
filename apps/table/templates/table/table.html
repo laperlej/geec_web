@@ -4,10 +4,10 @@
 {% block content %}
 
 <div id="content">
-  <div id="content_search">
+  <div id="content-search">
     <!--filters for table-->
     <!--Select a column to search-->
-    <select class="form-control" id="column_select">
+    <select class="form-control" id="column-select">
       <option selected="selected" value='-1'>Any</option>
       <option value="1">Assay</option>
       <option value="2">Assay Category</option>
@@ -15,14 +15,14 @@
       <option value="4">Cell Type Category</option>
     </select>
     <!--Search bar-->
-    <input type="text" class="form-control" placeholder="Search" id="search_bar">
+    <input type="text" class="form-control" placeholder="Search" id="search-bar">
   </div>
-  <div id="content_table">
+  <div id="content-table">
     <!--main table-->
-    <table id="bw_table" class="display compact nowrap">
-      <thead id="table_header">
+    <table id="bw-table" class="display compact nowrap">
+      <thead id="table-header">
         <tr>
-          <th class="dt-center"><input id="select_all" type="checkbox"></th>
+          <th class="dt-center"><input id="select-all" type="checkbox"></th>
           <th>Assay</th>
           <th>Assay Category</th>
           <th>Cell Type</th>
@@ -33,10 +33,10 @@
     </table>
   </div>
 
-  <div id="submit_panel">
+  <div id="submit-panel">
     <!--footer to submit selection-->
     <button id="submit" class="btn btn-primary btn-sm disabled">Submit</button>
-    <span id='count_wrapper'><span id="select_count">0</span> datasets selected</span>
+    <span id='count-wrapper'><span id="select-count">0</span> datasets selected</span>
   </div>
 </div>
 
