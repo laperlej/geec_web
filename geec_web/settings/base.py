@@ -41,7 +41,7 @@ SECRET_KEY = secret.load_secret_key(SECRET_FILE, 50)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['localhost', 'geec.herokuapp.com']
 
 
 # Application definition
