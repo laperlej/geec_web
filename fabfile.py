@@ -5,3 +5,6 @@ def test_local():
 
 def deploy_local():
     local('python manage.py runserver --settings=geec_web.settings.development')
+
+def deploy_develop():
+    local('git push heroku develop:master')
