@@ -18,9 +18,6 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 if not os.path.exists(os.path.join(BASE_DIR, 'deploy')):
     os.makedirs(os.path.join(BASE_DIR, 'deploy'))
 
-if not os.path.exists(os.path.join(BASE_DIR, 'static')):
-    os.makedirs(os.path.join(BASE_DIR, 'static'))
-
 #add to PYTHONPATH to find python modules
 import sys
 
@@ -47,13 +44,12 @@ ALLOWED_HOSTS = ['localhost']
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'table'
+    'apps.table'
 )
 
 MIDDLEWARE_CLASSES = (
