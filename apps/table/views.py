@@ -19,6 +19,7 @@ class MainView(View):
 
 class DataView(View):
     def get(self, request):
-        response = HttpResponse('hello')
-        response['Content-Disposition'] = 'attachment; filename="somefilename.txt"'
+        content = request.GET.get('datasets', '')
+        response = HttpResponse(content)
+        response['Content-Disposition'] = 'attachment; filename="dummy.txt"'
         return response
