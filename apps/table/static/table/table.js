@@ -153,12 +153,6 @@ $(document).ready(function() {
     }
   }
 
-
-  //scripts for submit button
-  $('#submit').on('click', function() {
-    alert('hello');
-  });
-
   //handle scrolling
   $(window).bind('resize', function () {
     var new_height = newTableHeight();

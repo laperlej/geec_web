@@ -1,11 +1,12 @@
 {% extends "table/base.html" %}
-{% load staticfiles %}
+{% load static %}
 
 {% block content %}
 
 <div id="content">
   <div id="content-search">
     <!--filters for table-->
+
     <!--Select a column to search-->
     <select class="form-control" id="column-select">
       <option selected="selected" value='-1'>Any</option>
@@ -14,10 +15,12 @@
       <option value="3">Cell Type</option>
       <option value="4">Cell Type Category</option>
     </select>
+
     <!--Search bar-->
     <input type="text" class="form-control" placeholder="Search" id="search-bar">
   </div>
   <div id="content-table">
+
     <!--main table-->
     <table id="bw-table" class="display compact nowrap">
       <thead id="table-header">
@@ -35,9 +38,28 @@
 
   <div id="submit-panel">
     <!--footer to submit selection-->
-    <button id="submit" class="btn btn-primary btn-sm disabled">Submit</button>
-    <span id='count-wrapper'><span id="select-count">0</span> datasets selected</span>
+
+    <!--output form-->
+    {% if request.GET.sendToGalaxy %}
+    <form action="{{galaxy_url}}" method="POST">
+      <input type="hidden" id="tool_id" name="tool_id" value="{{tool_id}}"/>
+      <input type="HIDDEN" name="URL" value="{{ url }}data/">
+      <input type="HIDDEN" name="" value="{{ url }}data/">
+      <input type="HIDDEN" name="dbkey" value="hg19">
+      <input type="HIDDEN" name="URL_method" value="get">
+      <input type="SUBMIT" id="submit" class="btn btn-primary btn-sm disabled" value="Send To Galaxy"/>
+    </form>
+    {% else %}
+    <button id="submit" class="btn btn-primary btn-sm disabled">Send To Galaxy</button>
+    {% endif %}
+
+    <!--Dataset count-->
+    <span id='count-wrapper'>
+      <span id="select-count">0</span> 
+      datasets selected
+    </span>
   </div>
+
 </div>
 
 {% endblock %}
