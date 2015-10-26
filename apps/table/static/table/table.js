@@ -188,14 +188,14 @@ $(document).ready(function() {
   }
 
   //handling the galaxy form
-  $('#submit').click( function () {
-    var data = main-table.rows(':has(:checkbox:checked)').data();
+  $('#submit').on( "click", function () {
+    var data = main_table.rows(':has(:checkbox:checked)').data();
     var text = "@\n";
     for (i = 0; i < data.length; i++) {
       text += data[i].qcTrackMd5 + "\n";
     }
     $("#datasets").val(text);
-    $("#form").submit();
+    $("#galaxy-form").submit();
   });
 
 });
