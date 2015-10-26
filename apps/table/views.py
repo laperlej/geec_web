@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import View
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt    
+from django.utils.decorators import method_decorator                                      
 
 # Create your views here.
 class MainView(View):
@@ -18,8 +20,12 @@ class MainView(View):
             'url': url})
 
 class DataView(View):
-    def get(self, request):
-        content = request.GET.get('datasets', '')
+    @method_decorator(csrf_exempt)
+    def dispatch(self, *args, **kwargs):
+        return super(DataView, self).dispatch(*args, **kwargs)
+
+    def post(self, request):
+        content = request.POST.get('datasets', '')
         response = HttpResponse(content)
         response['Content-Disposition'] = 'attachment; filename="dummy.txt"'
         return response
