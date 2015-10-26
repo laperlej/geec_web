@@ -22,7 +22,7 @@ class TestTable(TestCase):
         param_name = "datasets"
         param_value = "This is a test"
 
-        response = self.client.get('{0}?{1}={2}'.format(url, param_name, param_value))
+        response = self.client.post(url, {param_name: param_value})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             response.get('Content-Disposition'), 'attachment; filename="dummy.txt"'
