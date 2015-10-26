@@ -20,20 +20,39 @@ $(document).ready(function() {
       "dataSrc": "dataset"
     },
     //associate json elements to columns(in order)
+    "columnDefs": [ {
+      "targets": 5,
+      "data": function (row, type, val, meta) {
+        return basename(val);
+      }
+    }],
     "columns": [
         //checkboxes
         {'searchable': false,
-        'orderable': false,
-        'className': 'dt-center',
-        'width': 1,
-        'render': function () {
-         return '<input type="checkbox">';}
-       },
+         'orderable': false,
+         'className': 'dt-center',
+         'width': 1,
+         'render': function () {
+           return '<input type="checkbox">';
+         }
+        },
         //data
         {"data": "assay"},
         {"data": "assay_category"},
         {"data": "cell_type"},
         {"data": "cell_type_category"},
+        {"visible": false,
+        'className': 'never',
+        'data':"qcTrackInternalFilePath"},
+        {"visible": false,
+        'className': 'never',
+        'data':"releasing_group"},
+        /*
+        {//"visible": false,
+         'render': function () {
+           return data.releasing_group+' '+data.institution;
+         }
+        },*/
         //more info
         {
          'width': 1,
@@ -105,12 +124,12 @@ $(document).ready(function() {
   function format(data) {
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
           '<tr>'+
-              '<td>name:</td>'+
+              '<td>File Name:</td>'+
               '<td>'+basename(data.qcTrackInternalFilePath)+'</td>'+
           '</tr>'+
           '<tr>'+
-              '<td>institution:</td>'+
-              '<td>'+data.releasing_group+' '+data.institution+'</td>'+
+              '<td>Releasing Group:</td>'+
+              '<td>'+data.releasing_group+'</td>'+
           '</tr>'+
           '</table>';
   }
@@ -167,5 +186,16 @@ $(document).ready(function() {
     //adjust whenever layout is changed
     return $(document).height() - 121;
   }
+
+  //handling the galaxy form
+  $('#submit').click( function () {
+    var data = main-table.rows(':has(:checkbox:checked)').data();
+    var text = "@\n";
+    for (i = 0; i < data.length; i++) {
+      text += data[i].qcTrackMd5 + "\n";
+    }
+    $("#datasets").val(text);
+    $("#form").submit();
+  });
 
 });
