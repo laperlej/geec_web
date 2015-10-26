@@ -4,9 +4,16 @@
 {% block content %}
 
 <div id="content">
+  <div id="title">
+    <span><h2>GEeC Public Datasets</h2></span>
+  </div>
   <div id="content-search">
     <!--filters for table-->
-
+    <!--Select an assembly-->
+    <select class="form-control" id="assembly-select">
+      <option selected="selected" value='hg19'>hg19</option>
+    </select>
+    <span id ="select-span">Filters:</span>
     <!--Select a column to search-->
     <select class="form-control" id="column-select">
       <option selected="selected" value='-1'>Any</option>
