@@ -198,6 +198,6 @@ $(document).ready(function() {
     $("#galaxy-form").submit();
   });
 
-});
+  $('.modal').modal('show');
 
-$('.modal').modal('show');
+});
