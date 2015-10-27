@@ -200,4 +200,19 @@ $(document).ready(function() {
 
   $('#galaxy-warning').modal('show');
 
+  //show selected
+  $('#show-selected').on('click', function() {
+    //clear any search
+    clearSearch(old_column);
+    //apply filter on checkbox:checked
+    $.fn.dataTable.ext.search.push(function(settings, data, row_idx){
+      if (main_table.row(row_idx).data()) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    main_table.draw();
+  });
+
 });
