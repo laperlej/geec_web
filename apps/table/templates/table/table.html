@@ -68,12 +68,19 @@
   </div>
 </div>
 
-<!--If not from galaxy-->
-{% if not request.GET.sendToGalaxy %}
+<!--output form if user comes from galaxy-->
+{% if request.GET.sendToGalaxy %}
+<form id="galaxy-form" action="{{galaxy_url}}" method="POST">
+  <input type="HIDDEN" id="tool_id" name="tool_id" value="{{tool_id}}"/>
+  <input type="HIDDEN" name="URL" value="{{ url }}data/">
+  <input type="HIDDEN" name="dbkey" value="hg19">
+  <input type="HIDDEN" name="URL_method" value="post">
+  <input type="HIDDEN" id="datasets" name="datasets" value="">
+</form>
+{% else %}
+<!--Warning if not from galaxy-->
 <div id="galaxy-warning" class="modal fade" role="dialog">
   <div class="modal-dialog">
-
-    <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -89,20 +96,8 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Continue</button>
       </div>
     </div>
-
   </div>
 </div>
-{% endif %}
-
-<!--output form-->
-{% if request.GET.sendToGalaxy %}
-<form id="galaxy-form" action="{{galaxy_url}}" method="POST">
-  <input type="HIDDEN" id="tool_id" name="tool_id" value="{{tool_id}}"/>
-  <input type="HIDDEN" name="URL" value="{{ url }}data/">
-  <input type="HIDDEN" name="dbkey" value="hg19">
-  <input type="HIDDEN" name="URL_method" value="post">
-  <input type="HIDDEN" id="datasets" name="datasets" value="">
-</form>
 {% endif %}
 
 {% endblock %}
