@@ -3,72 +3,88 @@
 
 {% block content %}
 
-<div id="content">
-  <div id="title">
-    <span><h2>GEeC Public Datasets</h2></span>
+
+<div class="container-fluid">
+  <div class="page-header">
+    <!--header section-->
+    <h2>GEeC Public Datasets <small>more information</small></h2>
   </div>
-  <div id="content-search">
-    <!--filters for table-->
+  <div class="row form-group">
+    <!--filter section-->
     <!--Select an assembly-->
-    <select class="form-control" id="assembly-select">
-      <option selected="selected" value='hg19'>hg19</option>
-    </select>
-    <span id ="select-span">Filters:</span>
-    <!--Select a column to search-->
-    <select class="form-control" id="column-select">
-      <option selected="selected" value='-1'>Any</option>
-      <option value="1">Assay</option>
-      <option value="2">Assay Category</option>
-      <option value="3">Cell Type</option>
-      <option value="4">Cell Type Category</option>
-      <option value="5">File Name</option>
-      <option value="6">Releasing Group</option>
-    </select>
-
-    <!--Search bar-->
-    <input type="text" class="form-control" placeholder="Search" id="search-bar">
+    <div class="col-xs-2">
+      <select class="form-control" id="assembly-select">
+        <option value='hg19' disabled selected>Assembly</option>
+        <option value='hg19'>hg19</option>
+      </select>
+    </div>
+    <div class="col-xs-3">
+      <!--Select a column-->
+      <select class="form-control" id="column-select">
+        <option value='-1' disabled selected>Filter on column</option>
+        <option value='-1'>Any</option>
+        <option value="1">Assay</option>
+        <option value="2">Assay Category</option>
+        <option value="3">Cell Type</option>
+        <option value="4">Cell Type Category</option>
+        <option value="5">File Name</option>
+        <option value="6">Releasing Group</option>
+      </select>
+      <!--Search bar-->
+      </div>
+      <div class="col-xs-4 nopadding">
+        <input type="text" class="form-control" placeholder="Search" id="search-bar">
+      </div>
+    </div>
+  <div class="row">
+    <!--table section-->
+    <div class="col-xs-12">
+      <!--main table-->
+      <small>
+        <table id="bw-table" class="display compact nowrap">
+          <thead id="table-header">
+            <tr>
+              <th class="dt-center"><input id="select-all" type="checkbox"></th>
+              <th>Assay</th>
+              <th>Assay Category</th>
+              <th>Cell Type</th>
+              <th>Cell Type Category</th>
+              <th>File Name</th>
+              <th>Institution</th>
+              <th></th>
+            </tr>
+          </thead>
+        </table>
+      </small>
+    </div>
   </div>
-  <div id="content-table">
-
-    <!--main table-->
-    <table id="bw-table" class="display compact nowrap">
-      <thead id="table-header">
-        <tr>
-          <th class="dt-center"><input id="select-all" type="checkbox"></th>
-          <th>Assay</th>
-          <th>Assay Category</th>
-          <th>Cell Type</th>
-          <th>Cell Type Category</th>
-          <th>File Name</th>
-          <th>Institution</th>
-          <th></th>
-        </tr>
-      </thead>
-    </table>
-  </div>
-
-  <div id="submit-panel">
-    <!--footer to submit selection-->
-
-    <!--output form-->
-    {% if request.GET.sendToGalaxy %}
-    <form id="galaxy-form" action="{{galaxy_url}}" method="POST">
-      <input type="HIDDEN" id="tool_id" name="tool_id" value="{{tool_id}}"/>
-      <input type="HIDDEN" name="URL" value="{{ url }}data/">
-      <input type="HIDDEN" name="dbkey" value="hg19">
-      <input type="HIDDEN" name="URL_method" value="post">
-      <input type="HIDDEN" id="datasets" name="datasets" value="">
-    </form>
-    {% endif %}
-    <button id="submit" class="btn btn-primary btn-sm disabled">Send To Galaxy</button>
-
-    <!--Dataset count-->
-    <span id='count-wrapper'>
+  <div class="row page-footer">
+    <!--footer section-->
+    <div class="col-xs-4 col-xs-offset-3">
+      <!--Dataset count-->
+      <span id='count-wrapper nowrap'>
       <span id="select-count">0</span> 
       datasets selected
-    </span>
+      </span>
+      <!--select-only button-->
+      <button id="submit" class="btn btn-primary btn-sm disabled">View Selected</button>
+    </div>
+    <div class="col-xs-3">
+      <!--submit button-->
+      <button id="submit" class="btn btn-primary btn-sm disabled">Send To Galaxy</button>
+    </div>
   </div>
-
 </div>
+
+<!--output form-->
+{% if request.GET.sendToGalaxy %}
+<form id="galaxy-form" action="{{galaxy_url}}" method="POST">
+  <input type="HIDDEN" id="tool_id" name="tool_id" value="{{tool_id}}"/>
+  <input type="HIDDEN" name="URL" value="{{ url }}data/">
+  <input type="HIDDEN" name="dbkey" value="hg19">
+  <input type="HIDDEN" name="URL_method" value="post">
+  <input type="HIDDEN" id="datasets" name="datasets" value="">
+</form>
+{% endif %}
 
 {% endblock %}
