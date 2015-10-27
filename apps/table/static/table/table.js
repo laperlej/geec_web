@@ -200,4 +200,30 @@ $(document).ready(function() {
 
   $('#galaxy-warning').modal('show');
 
+  //show selected
+  $('#show-selected').on('click', function() {
+    //clear any search
+    clearSearch(old_column);
+    //apply filter on checkbox:checked
+    $.fn.dataTable.ext.search.push(function(settings, data, row_idx){
+      tr = main_table.row(row_idx).nodes().to$()
+      //document.write(tr.has('input:checkbox:checked').html());
+      if (tr.has('input:checkbox:checked').length) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    main_table.draw();
+  });
+
+  //show all
+  $('#show-all').on('click', function() {
+    //clear any search
+    clearSearch(old_column);
+    //apply filter on checkbox:checked
+    $.fn.dataTable.ext.search.pop()
+    main_table.draw();
+  });
+
 });
