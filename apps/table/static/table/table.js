@@ -65,7 +65,11 @@ $(document).ready(function() {
       },
       ],
     //order on first data column
-    'order': [[1, 'asc']]
+    'order': [[1, 'asc']],
+    "fnInitComplete": function(oSettings, json) {
+      updateShownCount();
+      $('#galaxy-warning').modal('show');
+    }
   } );
 
 
@@ -101,6 +105,11 @@ $(document).ready(function() {
     } else {
       $('#submit').removeClass('disabled');
     }
+  }
+
+  function updateShownCount(){
+    var len = main_table.rows( { filter: 'applied' } ).data().toArray().length;
+    $('#shown-count').text(len);
   }
 
   //scripts for row expansion
@@ -159,17 +168,19 @@ $(document).ready(function() {
       //otherwise clear filter on old column
       main_table.column(colIdx).search('').draw();
     }
+    updateShownCount();
   }
 
   function updateSearch() {
     colIdx = $('#column-select').val();
-    if (colIdx == "-1") {
+    if (colIdx === null) {
       //if -1(any), search on all columns
       main_table.search($('#search-bar').val()).draw();
     } else {
       //otherwise search on specified column
       main_table.column(colIdx).search($('#search-bar').val()).draw();
     }
+    updateShownCount();
   }
 
   //handle scrolling
@@ -198,15 +209,13 @@ $(document).ready(function() {
     $("#galaxy-form").submit();
   });
 
-  $('#galaxy-warning').modal('show');
-
   //show selected
   $('#show-selected').on('click', function() {
     //clear any search
     clearSearch(old_column);
     //apply filter on checkbox:checked
     $.fn.dataTable.ext.search.push(function(settings, data, row_idx){
-      tr = main_table.row(row_idx).nodes().to$()
+      tr = main_table.row(row_idx).nodes().to$();
       //document.write(tr.has('input:checkbox:checked').html());
       if (tr.has('input:checkbox:checked').length) {
         return true;
@@ -215,6 +224,7 @@ $(document).ready(function() {
       }
     });
     main_table.draw();
+    updateShownCount();
   });
 
   //show all
@@ -222,8 +232,9 @@ $(document).ready(function() {
     //clear any search
     clearSearch(old_column);
     //apply filter on checkbox:checked
-    $.fn.dataTable.ext.search.pop()
+    $.fn.dataTable.ext.search.pop();
     main_table.draw();
+    updateShownCount();
   });
 
 });

@@ -20,8 +20,8 @@
     <div class="col-xs-3">
       <!--Select a column-->
       <select class="form-control" id="column-select">
-        <option value='-1' disabled selected>Filter on column</option>
-        <option value='-1'>Any</option>
+        <option value='null' disabled selected>Filter on column</option>
+        <option value='null'>Any</option>
         <option value="1">Assay</option>
         <option value="2">Assay Category</option>
         <option value="3">Cell Type</option>
@@ -57,15 +57,17 @@
       </small>
     </div>
   </div>
-  <div class="row page-footer pull-right">
-    <div class="col-xs-12">
+  <div class="row page-footer">
+    <div class="col-xs-4 btn-group">
       <!--footer section-->
-      <button id="show-selected" class="btn btn-primary">Show selected</button>
-      <button id="show-all" class="btn btn-primary">Show all</button>
-      <!--Dataset count-->
-      <label for="submit"><span id="select-count">0</span> datasets selected</label>
+      <button id="show-selected" class="btn btn-primary show-group">Show selected</button>
+      <button id="show-all" class="btn btn-primary show-group">Show all</button>
+    </div>
+    <div class="col-xs-8 nowrap">
       <!--submit button-->
-      <button id="submit" class="btn btn-primary disabled"><span class="glyphicon glyphicon-check"></span> Send To Galaxy</button>
+      <button id="submit" class="btn btn-primary disabled pull-right"><span class="glyphicon glyphicon-check"></span> Send To Galaxy</button>
+      <!--Dataset count-->
+      <label for="submit" id="counters" class="pull-right"><span id="shown-count">0</span> datasets displayed, <span id="select-count">0</span> selected</label>
     </div>
   </div>
 </div>
