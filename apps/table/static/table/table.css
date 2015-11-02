@@ -1,3 +1,7 @@
+body {
+  min-width: 720px;
+}
+
 #select-all {
   /*exact px for center-align
   of header row checkbox*/
@@ -18,9 +22,11 @@
   margin-top: 12px;
 }
 
+/*
 .show-group{
   width: 125px;
 }
+*/
 
 #counters{
   margin-top: 8px;
