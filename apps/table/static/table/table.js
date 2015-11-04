@@ -41,12 +41,13 @@ $(document).ready(function() {
         {"data": "assay_category"},
         {"data": "cell_type"},
         {"data": "cell_type_category"},
+        {"data": "releasing_group"},
         {"visible": false,
         'className': 'never',
         'data':"qcTrackInternalFilePath"},
         {"visible": false,
         'className': 'never',
-        'data':"releasing_group"},
+        'data':"institution"},
         /*
         {//"visible": false,
          'render': function () {
@@ -137,8 +138,8 @@ $(document).ready(function() {
               '<td>'+basename(data.qcTrackInternalFilePath)+'</td>'+
           '</tr>'+
           '<tr>'+
-              '<td>Releasing Group:</td>'+
-              '<td>'+data.releasing_group+'</td>'+
+              '<td>Institution:</td>'+
+              '<td>'+data.institution+'</td>'+
           '</tr>'+
           '</table>';
   }
@@ -149,7 +150,7 @@ $(document).ready(function() {
 
 
   //scripts for search
-  var old_column = "-1";
+  var old_column = "null";
   $('#column-select').on('change', function() {
     clearSearch(old_column);
     old_column = $(this).val();
@@ -161,7 +162,7 @@ $(document).ready(function() {
 
   function clearSearch(colIdx) {
     $('#search-bar').val('');
-    if (colIdx == "-1") {
+    if (colIdx === "null" || colIdx === null) {
       //if -1(any), clear table filter
       main_table.search('').draw();
     } else {
@@ -173,7 +174,7 @@ $(document).ready(function() {
 
   function updateSearch() {
     colIdx = $('#column-select').val();
-    if (colIdx === null) {
+    if (colIdx === "null" || colIdx === null) {
       //if -1(any), search on all columns
       main_table.search($('#search-bar').val()).draw();
     } else {
@@ -195,7 +196,7 @@ $(document).ready(function() {
 
   function newTableHeight(){
     //adjust whenever layout is changed
-    return $(document).height() - 240;
+    return $(document).height() - 260;
   }
 
   //handling the galaxy form

@@ -2,6 +2,19 @@ body {
   min-width: 720px;
 }
 
+#search-row{
+  margin-bottom: 5px !important;
+}
+
+#assembly-select{
+  width: 170px;
+}
+
+#release-row{
+  margin-bottom: 15px !important;
+  margin-left: 16px !important;
+}
+
 #select-all {
   /*exact px for center-align
   of header row checkbox*/
