@@ -156,61 +156,109 @@ $(document).ready(function() {
   });
 
   //search bar filter
-  $('#search-bar').on('keyup paste change', function() {
-    updateSearch();
+  $('#search-bar').on('change keyup copy', function() {
+    var col_idx = $('#column-select').val();
+    updateSearch(col_idx);
+    //if (col_idx === "null" || col_idx === null){
+    //  if (!($('#search-bar').val() === '' && main_table.search() === '')) {
+    //    updateSearch(col_idx);
+    //  }
+    //} else {
+    //  if (!($('#search-bar').val() === '' && main_table.column(col_idx).search() === '')) {
+    //    updateSearch(col_idx);
+    //  }
+    //}
   });
 
   //column selectors
+  column_selectors = ['#assay-select', '#assay-cat-select', '#cell-type-select', '#cell-type-cat-select', '#rel-group-select'];
   $('#assay-select').on('change', function() {
-    orFilter(1, $('#assay-select').val());
+    updateSearch(1);
+    updateSelects(1);
   });
   $('#assay-cat-select').on('change', function() {
-    orFilter(2, $('#assay-cat-select').val());
+    updateSearch(2);
+    updateSelects(2);
   });
   $('#cell-type-select').on('change', function() {
-    orFilter(3, $('#cell-type-select').val());
+    updateSearch(3);
+    updateSelects(3);
   });
   $('#cell-type-cat-select').on('change', function() {
-    orFilter(4, $('#cell-type-cat-select').val());
+    updateSearch(4);
+    updateSelects(4);
   });
   $('#rel-group-select').on('change', function() {
-    orFilter(5, $('#rel-group-select').val());
+    updateSearch(5);
+    updateSelects(5);
   });
 
+  function updateSelects(col_idx) {
+    for (var i = 1; i <= 5; ++i) {
+      if (i != col_idx) {
+        var unique_vals = main_table.column(i, { search:'applied' }).data().unique().sort();
+        var k = 0;
+        var options = $(column_selectors[i-1] + ' option');
+        for (var j = 0; j < unique_vals.length;++j) {
+          while(unique_vals[j] != $(options[k]).val()) {
+            //$(options[k]).attr('disabled', 'disabled');
+            $(options[k]).hide();
+            ++k;
+          }
+          //$(options[k]).removeAttr('disabled');
+          $(options[k]).show();
+          ++k;
+        }
+        while(k < options.length) {
+          //$(options[k]).attr('disabled', 'disabled');
+          $(options[k]).hide();
+          ++k;
+        }
+        $(column_selectors[i-1]).trigger("chosen:updated");
+      }
+    }
+  }
+
+  //creates an "or" regex TODO: use join instead
   function orFilter(idx, list) {
     if (list !== null){
       filter = list[0];
-      for (var i=1; i < list.length; i++) {
+      for (var i = 1; i < list.length; ++i) {
         filter += '|' + list[i];
       }
-      main_table.column(idx).search(filter, true, false).draw();
     } else {
-      main_table.column(idx).search('').draw();
+      filter = "";
     }
+    return filter;
   }
 
-  function clearSearch(colIdx) {
+  function clearSearch(col_idx) {
     $('#search-bar').val('');
-    if (colIdx === "null" || colIdx === null) {
-      //if -1(any), clear table filter
-      main_table.search('').draw();
-    } else {
-      //otherwise clear filter on old column
-      main_table.column(colIdx).search('').draw();
-    }
-    updateShownCount();
+    updateSearch(col_idx);
   }
 
-  function updateSearch() {
-    colIdx = $('#column-select').val();
-    if (colIdx === "null" || colIdx === null) {
+  RegExp.escape = function(s) {
+    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+  };
+
+  function updateSearch(col_idx) {
+    if (col_idx === "null" || col_idx === null) {
       //if -1(any), search on all columns
       main_table.search($('#search-bar').val()).draw();
     } else {
       //otherwise search on specified column
-      main_table.column(colIdx).search($('#search-bar').val()).draw();
+      var filter = "";
+      if (col_idx >= 1 && col_idx <= 5) {
+        filter += "(?=" + orFilter(col_idx, $(column_selectors[col_idx-1]).val()) + ")";
+      }
+      var search_terms = $('#search-bar').val().split(' ');
+      for (var i = 0; i < search_terms.length; ++i) {
+        filter += "(?=.*" + RegExp.escape(search_terms[i]) + ")";
+      }
+      main_table.column(col_idx).search(filter, true, false).draw();
     }
     updateShownCount();
+    updateSelects(col_idx);
   }
 
   //handle scrolling
