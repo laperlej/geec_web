@@ -44,6 +44,36 @@
       <a href='#'>Advanced Selection</a>
     </div>
   </div>
+  <div class="row" id="select-row ">
+
+    <select class="chosen" id="assay-select" data-placeholder="Assay" multiple="true">
+      {% for assay in assays %}
+        <option value="{{assay}}">{{assay}}</option>
+      {% endfor %}
+    </select>
+    <select class="chosen" id="assay-cat-select" data-placeholder="Assay Category" multiple="true">
+      {% for assay_cat in assay_cats %}
+        <option value="{{assay_cat}}">{{assay_cat}}</option>
+      {% endfor %}
+    </select>
+    <select class="chosen" id="cell-type-select" data-placeholder="Cell Type" multiple="true">
+      {% for cell_type in cell_types %}
+        <option value="{{cell_type}}">{{cell_type}}</option>
+      {% endfor %}
+    </select>
+    <select class="chosen" id="cell-type-cat-select" data-placeholder="Cell Type Category" multiple="true">
+      {% for cell_type_cat in cell_type_cats %}
+        <option value="{{cell_type_cat}}">{{cell_type_cat}}</option>
+      {% endfor %}
+    </select>
+    <select class="chosen" id="rel-group-select" data-placeholder="Releasing Group" multiple="true">
+      {% for rel_group in rel_groups %}
+        <option value="{{rel_group}}">{{rel_group}}</option>
+      {% endfor %}
+    </select>
+
+
+  </div>
   <div class="row">
     <!--table section-->
     <div class="col-xs-12">

@@ -73,7 +73,6 @@ $(document).ready(function() {
     }
   } );
 
-
   //scripts for selection
   $('#select-all').on("click", function(e) {
     if (this.checked) {
@@ -156,9 +155,39 @@ $(document).ready(function() {
     old_column = $(this).val();
   });
 
+  //search bar filter
   $('#search-bar').on('keyup paste change', function() {
     updateSearch();
   });
+
+  //column selectors
+  $('#assay-select').on('change', function() {
+    orFilter(1, $('#assay-select').val());
+  });
+  $('#assay-cat-select').on('change', function() {
+    orFilter(2, $('#assay-cat-select').val());
+  });
+  $('#cell-type-select').on('change', function() {
+    orFilter(3, $('#cell-type-select').val());
+  });
+  $('#cell-type-cat-select').on('change', function() {
+    orFilter(4, $('#cell-type-cat-select').val());
+  });
+  $('#rel-group-select').on('change', function() {
+    orFilter(5, $('#rel-group-select').val());
+  });
+
+  function orFilter(idx, list) {
+    if (list !== null){
+      filter = list[0];
+      for (var i=1; i < list.length; i++) {
+        filter += '|' + list[i];
+      }
+      main_table.column(idx).search(filter, true, false).draw();
+    } else {
+      main_table.column(idx).search('').draw();
+    }
+  }
 
   function clearSearch(colIdx) {
     $('#search-bar').val('');
@@ -237,5 +266,7 @@ $(document).ready(function() {
     main_table.draw();
     updateShownCount();
   });
+
+  $(".chosen").chosen();
 
 });
