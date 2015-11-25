@@ -2,6 +2,18 @@ body {
   min-width: 720px;
 }
 
+.chosen-container{
+  font-size: 80% !important;
+}
+
+#rel-group-select{
+  width: 100%;
+}
+
+.dataTables_scrollHead{
+  overflow: visible !important;
+}
+
 #search-row{
   margin-bottom: 5px !important;
 }

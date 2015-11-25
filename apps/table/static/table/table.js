@@ -159,15 +159,6 @@ $(document).ready(function() {
   $('#search-bar').on('change keyup copy', function() {
     var col_idx = $('#column-select').val();
     updateSearch(col_idx);
-    //if (col_idx === "null" || col_idx === null){
-    //  if (!($('#search-bar').val() === '' && main_table.search() === '')) {
-    //    updateSearch(col_idx);
-    //  }
-    //} else {
-    //  if (!($('#search-bar').val() === '' && main_table.column(col_idx).search() === '')) {
-    //    updateSearch(col_idx);
-    //  }
-    //}
   });
 
   //column selectors
