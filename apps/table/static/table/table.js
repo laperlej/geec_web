@@ -165,25 +165,25 @@ $(document).ready(function() {
   column_selectors = ['#assay-select', '#assay-cat-select', '#cell-type-select', '#cell-type-cat-select', '#rel-group-select'];
   $('#assay-select').on('change', function() {
     updateSearch(1);
-    updateSelects(1);
+    //updateSelects(1);
   });
   $('#assay-cat-select').on('change', function() {
     updateSearch(2);
-    updateSelects(2);
+    //updateSelects(2);
   });
   $('#cell-type-select').on('change', function() {
     updateSearch(3);
-    updateSelects(3);
+    //updateSelects(3);
   });
   $('#cell-type-cat-select').on('change', function() {
     updateSearch(4);
-    updateSelects(4);
+    //updateSelects(4);
   });
   $('#rel-group-select').on('change', function() {
     updateSearch(5);
-    updateSelects(5);
+    //updateSelects(5);
   });
-
+/*
   function updateSelects(col_idx) {
     for (var i = 1; i <= 5; ++i) {
       if (i != col_idx) {
@@ -209,7 +209,7 @@ $(document).ready(function() {
       }
     }
   }
-
+*/
   //creates an "or" regex TODO: use join instead
   function orFilter(idx, list) {
     if (list !== null){
@@ -249,7 +249,7 @@ $(document).ready(function() {
       main_table.column(col_idx).search(filter, true, false).draw();
     }
     updateShownCount();
-    updateSelects(col_idx);
+    //updateSelects(col_idx);
   }
 
   //handle scrolling
