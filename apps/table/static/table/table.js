@@ -209,21 +209,21 @@ $(document).ready(function() {
       //if not the column that changed
       if (i != column_idx) {
         //apply filter as only search bar
-        applyFilter(getSearchRegex(i), i);
-        //find all unique
-        var new_options = main_table.column(i, { search:'applied' }).data().unique().sort();
-        //update selector content
-        alert(new_options.toArray());
-        updateSelectionOptions(i, new_options);
-        //apply full filter
-        updateFilter(i);
+        if ($(column_selectors[i-1]).val() !== null) {
+            applyFilter(getSearchRegex(i), i);
+            updateSelectionOptions(i);
+            updateFilter(i);
+        } else {
+            updateSelectionOptions(i);
+        }
       }
       //draw table
       main_table.draw();
     }
   }
 
-  function updateSelectionOptions(column_idx, new_options) {
+  function updateSelectionOptions(column_idx) {
+    var new_options = main_table.column(column_idx, { search:'applied' }).data().unique().sort();
     var all_options = $(column_selectors[column_idx-1] + ' option');
     var k = 0;
     for (var j = 0; j < new_options.length;++j) {
