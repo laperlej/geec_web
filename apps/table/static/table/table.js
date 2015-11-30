@@ -292,7 +292,7 @@ $(document).ready(function() {
 
   function newTableHeight(){
     //adjust whenever layout is changed
-    return $(document).height() - 260;
+    return $(document).height() - 335;
   }
 
   //handling the galaxy form
