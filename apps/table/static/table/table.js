@@ -155,102 +155,129 @@ $(document).ready(function() {
     old_column = $(this).val();
   });
 
+  function clearSearch(column_idx) {
+    $('#search-bar').val('');
+    updateSearch(column_idx);
+  }
+
   //search bar filter
   $('#search-bar').on('change keyup copy', function() {
-    var col_idx = $('#column-select').val();
-    updateSearch(col_idx);
+    var column_idx = $('#column-select').val();
+    handleSearchChange(column_idx);
   });
+
+  function handleSearchChange(column_idx) {
+    if (column_idx === "null" || column_idx === null) {
+      //if -1(any), search on all columns
+      main_table.search($('#search-bar').val())
+      handleSelectionChange(0);
+    } else if (column_idx >= 1 && column_idx <= 5) {
+      handleSelectionChange(column_idx);
+    } else {
+      applyFilter(getSearchRegex(i), i);
+      handleSelectionChange(0);
+    }
+  }
 
   //column selectors
   column_selectors = ['#assay-select', '#assay-cat-select', '#cell-type-select', '#cell-type-cat-select', '#rel-group-select'];
+
+  //handle column selectors
   $('#assay-select').on('change', function() {
-    updateSearch(1);
-    //updateSelects(1);
+    handleSelectionChange(1);
   });
   $('#assay-cat-select').on('change', function() {
-    updateSearch(2);
-    //updateSelects(2);
+    handleSelectionChange(2);
   });
   $('#cell-type-select').on('change', function() {
-    updateSearch(3);
-    //updateSelects(3);
+    handleSelectionChange(3);
   });
   $('#cell-type-cat-select').on('change', function() {
-    updateSearch(4);
-    //updateSelects(4);
+    handleSelectionChange(4);
   });
   $('#rel-group-select').on('change', function() {
-    updateSearch(5);
-    //updateSelects(5);
+    handleSelectionChange(5);
   });
-/*
-  function updateSelects(col_idx) {
+
+  function handleSelectionChange(column_idx) {
+    //apply new filter
+    if (column_idx !== 0) {
+        updateFilter(column_idx);
+    }
+    //for every column
     for (var i = 1; i <= 5; ++i) {
-      if (i != col_idx) {
-        var unique_vals = main_table.column(i, { search:'applied' }).data().unique().sort();
-        var k = 0;
-        var options = $(column_selectors[i-1] + ' option');
-        for (var j = 0; j < unique_vals.length;++j) {
-          while(unique_vals[j] != $(options[k]).val()) {
-            //$(options[k]).attr('disabled', 'disabled');
-            $(options[k]).hide();
-            ++k;
-          }
-          //$(options[k]).removeAttr('disabled');
-          $(options[k]).show();
-          ++k;
-        }
-        while(k < options.length) {
-          //$(options[k]).attr('disabled', 'disabled');
-          $(options[k]).hide();
-          ++k;
-        }
-        $(column_selectors[i-1]).trigger("chosen:updated");
+      //if not the column that changed
+      if (i != column_idx && $(column_selectors[column_idx-1]).val() !== null) {
+        //apply filter as only search bar
+        applyFilter(getSearchRegex(i), i);
+        //find all unique
+        var new_options = main_table.column(i, { search:'applied' }).data().unique().sort();
+        //update selector content
+        updateSelectionOptions(i, new_options);
+        //apply full filter
+        updateFilter(i);
       }
+      //draw table
+      main_table.draw();
     }
-  }
-*/
-  //creates an "or" regex TODO: use join instead
-  function orFilter(idx, list) {
-    if (list !== null){
-      filter = list[0];
-      for (var i = 1; i < list.length; ++i) {
-        filter += '|' + list[i];
-      }
-    } else {
-      filter = "";
-    }
-    return filter;
-  }
-
-  function clearSearch(col_idx) {
-    $('#search-bar').val('');
-    updateSearch(col_idx);
-  }
-
-  RegExp.escape = function(s) {
-    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
   };
 
-  function updateSearch(col_idx) {
-    if (col_idx === "null" || col_idx === null) {
-      //if -1(any), search on all columns
-      main_table.search($('#search-bar').val()).draw();
-    } else {
-      //otherwise search on specified column
-      var filter = "";
-      if (col_idx >= 1 && col_idx <= 5) {
-        filter += "(?=" + orFilter(col_idx, $(column_selectors[col_idx-1]).val()) + ")";
+  function updateSelectionOptions(column_idx, new_options) {
+    var all_options = $(column_selectors[column_idx-1] + ' option');
+    var k = 0;
+    for (var j = 0; j < new_options.length;++j) {
+      while(new_options[j] != $(all_options[k]).val()) {
+      $(all_options[k]).hide();
+        ++k;
       }
+        $(all_options[k]).show();
+        ++k;
+    }
+    while(k < all_options.length) {
+      $(all_options[k]).hide();
+      ++k;
+    }
+    $(column_selectors[column_idx-1]).trigger("chosen:updated");
+  };
+
+  function getSearchRegex(column_idx) {
+    var regex = '';
+    if ($('#column-select').val == column_idx) {
       var search_terms = $('#search-bar').val().split(' ');
       for (var i = 0; i < search_terms.length; ++i) {
-        filter += "(?=.*" + RegExp.escape(search_terms[i]) + ")";
+        regex += "(?=.*" + escapeRegex(search_terms[i]) + ")";
       }
-      main_table.column(col_idx).search(filter, true, false).draw();
     }
-    updateShownCount();
-    //updateSelects(col_idx);
-  }
+    return regex;
+  };
+
+  function getSelectionRegex(column_idx) {
+    var regex = '';
+    var list = $(column_selectors[column_idx-1]).val();
+    if (list !== null) {
+      regex += list.join('|');
+    }
+    regex = "(?=" + regex + ")";
+    return regex;
+  };
+
+  function getRegex(column_idx) {
+    return getSelectionRegex(column_idx) + getSearchRegex(column_idx);
+  };
+
+  function applyFilter(regex, column_idx) {
+    main_table.column(column_idx).search(regex, true, false);
+  };
+
+  function updateFilter(column_idx) {
+    var regex = getRegex(column_idx);
+    main_table.column(column_idx).search(regex, true, false);
+  };
+
+  function escapeRegex(string) {
+    return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+  };
+
 
   //handle scrolling
   $(window).bind('resize', function () {
