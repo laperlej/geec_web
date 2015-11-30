@@ -207,12 +207,13 @@ $(document).ready(function() {
     //for every column
     for (var i = 1; i <= 5; ++i) {
       //if not the column that changed
-      if (i != column_idx && $(column_selectors[column_idx-1]).val() !== null) {
+      if (i != column_idx) {
         //apply filter as only search bar
         applyFilter(getSearchRegex(i), i);
         //find all unique
         var new_options = main_table.column(i, { search:'applied' }).data().unique().sort();
         //update selector content
+        alert(new_options.toArray());
         updateSelectionOptions(i, new_options);
         //apply full filter
         updateFilter(i);
@@ -220,7 +221,7 @@ $(document).ready(function() {
       //draw table
       main_table.draw();
     }
-  };
+  }
 
   function updateSelectionOptions(column_idx, new_options) {
     var all_options = $(column_selectors[column_idx-1] + ' option');
@@ -238,7 +239,7 @@ $(document).ready(function() {
       ++k;
     }
     $(column_selectors[column_idx-1]).trigger("chosen:updated");
-  };
+  }
 
   function getSearchRegex(column_idx) {
     var regex = '';
@@ -259,24 +260,24 @@ $(document).ready(function() {
     }
     regex = "(?=" + regex + ")";
     return regex;
-  };
+  }
 
   function getRegex(column_idx) {
     return getSelectionRegex(column_idx) + getSearchRegex(column_idx);
-  };
+  }
 
   function applyFilter(regex, column_idx) {
     main_table.column(column_idx).search(regex, true, false);
-  };
+  }
 
   function updateFilter(column_idx) {
     var regex = getRegex(column_idx);
     main_table.column(column_idx).search(regex, true, false);
-  };
+  }
 
   function escapeRegex(string) {
     return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-  };
+  }
 
 
   //handle scrolling
