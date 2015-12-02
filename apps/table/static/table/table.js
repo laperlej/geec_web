@@ -71,7 +71,7 @@ $(document).ready(function() {
       updateShownCount();
       $('#galaxy-warning').modal('show');
     }
-  } );
+  });
 
   //scripts for selection
   $('#select-all').on("click", function(e) {
@@ -115,18 +115,18 @@ $(document).ready(function() {
   //scripts for row expansion
   $('#bw-table').on("click", 'tbody tr', function() {
       //important: must be before row selection
-      var tr = $(this);
-      var row = main_table.row(tr);
-      //toggle arrow icon
-      tr.find('span:first').toggleClass('glyphicon-triangle-top glyphicon-triangle-bottom');
-      if ( row.child.isShown() ) {
-          // close row if open
-          row.child.hide();
-        } else {
-          // open row if closed
-          row.child(format(row.data()), 'child').show();
-        }
-      });
+    var tr = $(this);
+    var row = main_table.row(tr);
+    //toggle arrow icon
+    tr.find('span:first').toggleClass('glyphicon-triangle-top glyphicon-triangle-bottom');
+    if ( row.child.isShown() ) {
+      // close row if open
+      row.child.hide();
+      } else {
+        // open row if closed
+        row.child(format(row.data()), 'child').show();
+      }
+  });
 
 
   //child table to generate on expension
@@ -375,3 +375,52 @@ $(document).ready(function() {
   $(".chosen").chosen();
 
 });
+
+/*
+things to handle:
+1. checkboxes: select all, unselect all
+2. show selection, show all
+3. galaxy form submit
+4. scrolling
+5. column selectors
+6. search bar
+7. row expansion
+8. counters: shown count, select count
+*/
+
+//generic filter
+function Filter() {throw new Error("Abstract class");}
+Filter.prototype.clear = function () {throw new Error("Abstract method");}
+Filter.prototype.getRegex = function () {throw new Error("Abstract method");}
+
+//filter based on a text input
+function TextFilter() {}
+TextFilter.prototype = Object.create(Filter.prototype);
+TextFilter.prototype.clear = function() {}
+TextFilter.prototype.getRegex = function() {}
+
+//Filter based on a multi-select input
+function MultiSelectFilter() {}
+MultiSelectFilter.prototype = Object.create(Filter.prototype);
+MultiSelectFilter.prototype.clear = function() {}
+MultiSelectFilter.prototype.getRegex = function() {}
+
+//filter that can be toggled on or off
+function ToggleFilter() {}
+ToggleFilter.prototype = Object.create(Filter.prototype);
+ToggleFilter.prototype.clear = function() {}
+ToggleFilter.prototype.getRegex = function() {}
+
+//mutliple filters, is a filter itself
+function FilterGroup() {}
+FilterGroup.prototype = Object.create(Filter.prototype);
+FilterGroup.prototype.clear = function() {}
+FilterGroup.prototype.getRegex = function() {}
+
+//handles application of filters to the datatable
+function FilterHandler() {}
+FilterHandler.prototype.applyFilter = function() {}
+
+//multi-select object handling
+function MultiSelectHandler() {}
+MultiSelect.prototype.change_options = function(new_options) {}
