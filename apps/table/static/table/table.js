@@ -155,21 +155,44 @@ $(document).ready(function() {
     old_column = $(this).val();
   });
 
+  function clearAll() {
+    clearSearch(old_column);
+    clearSelectors();
+  }
+
   function clearSearch(column_idx) {
     $('#search-bar').val('');
-    updateSearch(column_idx);
+    search_content = ''
+    handleSearchChange(column_idx);
+  }
+
+  function clearSelectors() {
+    for (var i = 0; i < 5; ++i) {
+      $(column_selectors[i] + 'options').val('')
+    }
+    handleSelectionChange(0);
   }
 
   //search bar filter
+  /*
   $('#search-bar').on('change keyup copy', function() {
     var column_idx = $('#column-select').val();
     handleSearchChange(column_idx);
+  });
+  */
+  var search_content = ''
+  $('#search-btn').on('click', function() {
+    var column_idx = $('#column-select').val();
+    search_content = $('#search-bar').val();
+    handleSearchChange(column_idx);
+    main_table.draw();
+    updateShownCount();
   });
 
   function handleSearchChange(column_idx) {
     if (column_idx === "null" || column_idx === null) {
       //if -1(any), search on all columns
-      main_table.search($('#search-bar').val())
+      main_table.search(search_content);
       handleSelectionChange(0);
     } else if (column_idx >= 1 && column_idx <= 5) {
       handleSelectionChange(column_idx);
@@ -185,18 +208,28 @@ $(document).ready(function() {
   //handle column selectors
   $('#assay-select').on('change', function() {
     handleSelectionChange(1);
+    main_table.draw();
+    updateShownCount();
   });
   $('#assay-cat-select').on('change', function() {
     handleSelectionChange(2);
+    main_table.draw();
+    updateShownCount();
   });
   $('#cell-type-select').on('change', function() {
     handleSelectionChange(3);
+    main_table.draw();
+    updateShownCount();
   });
   $('#cell-type-cat-select').on('change', function() {
     handleSelectionChange(4);
+    main_table.draw();
+    updateShownCount();
   });
   $('#rel-group-select').on('change', function() {
     handleSelectionChange(5);
+    main_table.draw();
+    updateShownCount();
   });
 
   function handleSelectionChange(column_idx) {
@@ -217,8 +250,6 @@ $(document).ready(function() {
             updateSelectionOptions(i);
         }
       }
-      //draw table
-      main_table.draw();
     }
   }
 
@@ -244,7 +275,7 @@ $(document).ready(function() {
   function getSearchRegex(column_idx) {
     var regex = '';
     if ($('#column-select').val == column_idx) {
-      var search_terms = $('#search-bar').val().split(' ');
+      var search_terms = search_content.split(' ');
       for (var i = 0; i < search_terms.length; ++i) {
         regex += "(?=.*" + escapeRegex(search_terms[i]) + ")";
       }
@@ -308,8 +339,7 @@ $(document).ready(function() {
 
   //show selected
   $('#show-selected').on('click', function() {
-    //clear any search
-    clearSearch(old_column);
+    toggleShowSelected();
     //apply filter on checkbox:checked
     $.fn.dataTable.ext.search.push(function(settings, data, row_idx){
       tr = main_table.row(row_idx).nodes().to$();
@@ -320,19 +350,27 @@ $(document).ready(function() {
         return false;
       }
     });
+    //clear any search
+    clearAll();
     main_table.draw();
     updateShownCount();
   });
 
   //show all
   $('#show-all').on('click', function() {
-    //clear any search
-    clearSearch(old_column);
+    toggleShowSelected();
     //apply filter on checkbox:checked
     $.fn.dataTable.ext.search.pop();
+    //clear any search
+    clearAll();
     main_table.draw();
     updateShownCount();
   });
+
+  function toggleShowSelected() {
+    $('#show-selected').toggleClass('disabled')
+    $('#show-all').toggleClass('disabled')
+  }
 
   $(".chosen").chosen();
 
