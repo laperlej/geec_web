@@ -162,13 +162,13 @@ $(document).ready(function() {
 
   function clearSearch(column_idx) {
     $('#search-bar').val('');
-    search_content = '';
+    search_content = ''
     handleSearchChange(column_idx);
   }
 
   function clearSelectors() {
     for (var i = 0; i < 5; ++i) {
-      $(column_selectors[i] + 'options').val('');
+      $(column_selectors[i] + 'options').val('')
     }
     handleSelectionChange(0);
   }
@@ -180,7 +180,7 @@ $(document).ready(function() {
     handleSearchChange(column_idx);
   });
   */
-  var search_content = '';
+  var search_content = ''
   $('#search-btn').on('click', function() {
     var column_idx = $('#column-select').val();
     search_content = $('#search-bar').val();
@@ -281,7 +281,7 @@ $(document).ready(function() {
       }
     }
     return regex;
-  }
+  };
 
   function getSelectionRegex(column_idx) {
     var regex = '';
@@ -387,8 +387,8 @@ things to handle:
 
 //generic filter
 function Filter(column_idx) {throw new Error("Abstract class");}
-Filter.prototype.clear = function () {throw new Error("Abstract method");};
-Filter.prototype.getRegex = function (column_idx) {throw new Error("Abstract method");};
+Filter.prototype.clear = function () {throw new Error("Abstract method");}
+Filter.prototype.getRegex = function (column_idx) {throw new Error("Abstract method");}
 
 
 //filter based on a text input
@@ -403,7 +403,7 @@ TextFilter.prototype = Object.create(Filter.prototype);
 TextFilter.prototype.clear = function() {
   this.dom.val('');
   this.commited_value = '';
-};
+}
 TextFilter.prototype.getRegex = function(column_idx) {
   var regex = '';
   if (column_idx === this.column_idx) {
@@ -413,16 +413,16 @@ TextFilter.prototype.getRegex = function(column_idx) {
     }
   }
   return regex;
-};
+}
 TextFilter.prototype.commit = function() {
   this.commited_value = this.dom.val();
-};
+}
 TextFilter.prototype.setColumn = function(column_idx) {
   this.column_idx = column_idx;
-};
+}
 TextFilter.prototype.escapeRegex = function() {
   return string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-};
+}
 
 
 //Filter based on a multi-select input
@@ -436,10 +436,10 @@ MultiSelectFilter.prototype.clear = function() {
   this.dom.find('options').val('');
   this.commited_value = null;
   this.update();
-};
+}
 MultiSelectFilter.prototype.update = function() {
   this.dom.trigger("chosen:updated");
-};
+}
 MultiSelectFilter.prototype.getRegex = function(column_idx) {
 
   var regex = '';
@@ -450,7 +450,7 @@ MultiSelectFilter.prototype.getRegex = function(column_idx) {
     regex = "(?=" + regex + ")";
   }
   return regex;
-};
+}
 
 
 //mutliple filters, is a filter itself
@@ -460,20 +460,20 @@ function FilterGroup(filters) {
 }
 FilterGroup.prototype = Object.create(Filter.prototype);
 FilterGroup.prototype.clear = function() {
-  for (var i = 0; i < this.filters.length; ++i) {
+  for (var i; i < this.filters.length; ++i;) {
     this.filters[i].clear();
   }
-};
+}
 FilterGroup.prototype.getRegex = function(column_idx) {
   var regex = '';
-  for (var i = 0; i < this.filters.length; ++i) {
+  for (var i; i < this.filters.length; ++i;) {
     regex += this.filters[i].getRegex();
   }
   return regex;
-};
+}
 FilterGroup.prototype.push = function(filter) {
   this.filters.push(filter);
-};
+}
 
 
 //handles application of filters to the datatable
@@ -483,12 +483,12 @@ function FilterHandler(filter, datatable) {
 FilterHandler.prototype.applyFilter = function(column_idx, datatable) {
   var regex = this.filter.getRegex(column_idx);
   datatable.column(column_idx).search(regex, true, false);
-};
+}
 
 
 //handler for custom filters
 function CustomFilterHandler(filter) {
-  this.filter = filter;
+  this.filter = filter
   this.on = true;
 }
 CustomFilterHandler.prototype = Object.create(FilterHandler.prototype);
@@ -498,14 +498,14 @@ CustomFilterHandler.prototype.applyFilter = function(column_idx, datatable) {
   } else {
     $.fn.dataTable.ext.search.pop();
   }
-};
-CustomFilterHandler.prototype.toggle = function() {
+}
+CustomFilterHandler.prototype.togge(){
   if (this.on) {
     this.on = false;
   } else {
     this.on = true;
   }
-};
+}
 
 
 //mutliple filter handlers, is a filterhandler itself
@@ -517,53 +517,12 @@ function FilterHandlerGroup(filter_handlers) {
 }
 FilterHandlerGroup.prototype = Object.create(FilterHandler.prototype);
 FilterHandlerGroup.prototype.applyFilter = function(column_idx, datatable) {
-  for (var i; i < this.filter_handlers.length; ++i) {
+  for (var i; i < this.filter_handlers.length; ++i;) {
     this.filter_handlers[i].applyFilter(column_idx, datatable);
   }
-};
-FilterHandlerGroup.prototype.push = function(filter_handler) {
-  this.filter_handlers.push(filter_handler);
-};
+}
 
 
 //multi-select object handling
-function MultiSelect(dom, column_idx, datatable, filterHandler) {
-  this.dom = dom;
-  this.column_idx = column_idx;
-  this.datatable = datatable;
-  this.filterHandler = filterHandler;
-}
-MultiSelect.prototype.updateOptions = function() {
-  var tmp = this.dom.val();
-  tmp = this.dom.val('');
-  this.filterHandler.applyFilter(this.column_idx);
-  var new_options = this.datatable.column(this.column_idx, { search:'applied' }).data().unique().sort();
-  this.changeOptions(new_options);
-  tmp = this.dom.val(tmp);
-  filterHandler.applyFilter(this.column_idx);
-  this.dom.trigger("chosen:updated");
-};
-MultiSelect.prototype.changeOptions = function(new_options) {
-  var all_options = this.dom.find('option');
-  var k = 0;
-  for (var j = 0; j < new_options.length;++j) {
-    while(new_options[j] != $(all_options[k]).val()) {
-    $(all_options[k]).hide();
-      ++k;
-    }
-    $(all_options[k]).show();
-    ++k;
-  }
-  while(k < all_options.length) {
-    $(all_options[k]).hide();
-    ++k;
-  }
-};
-
-function TableApp() {
-
-}
-
-function main() {
-  
-}
+function MultiSelectHandler() {}
+MultiSelect.prototype.change_options = function(new_options) {}
