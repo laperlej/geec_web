@@ -1,16 +1,15 @@
 $(document).ready(function() {
   //initialise DataTables plugin
   var main_table = $('#bw-table').DataTable( {
-    //remove everything but the main table
-    "paging": false,
+    //remove everything but the header and table
+    'sDom': 'Ht',
     "info": false,
-    "searching": true,
+    "scrollY": newTableHeight(),
+    "scroller": true,
     "scrollCollapse": true,
-    "fixedHeader": true,
-    "sScrollY" : newTableHeight(),
-    'sDom': '<#content-search>Ht',
     //only load entries the user can see
     "deferRender": true,
+    "searching": true,
     //display message while loading
     "processing": true,
     //load json static file
@@ -20,12 +19,6 @@ $(document).ready(function() {
       "dataSrc": "dataset"
     },
     //associate json elements to columns(in order)
-    "columnDefs": [ {
-      "targets": 5,
-      "data": function (row, type, val, meta) {
-        return basename(val);
-      }
-    }],
     "columns": [
         //checkboxes
         {'searchable': false,
@@ -55,15 +48,14 @@ $(document).ready(function() {
          }
         },*/
         //more info
-        {
-         'width': 1,
+        {'width': 1,
          'className': 'more-info dt-center',
          'searchable': false,
          'orderable': false,
          'render': function () {
           return '<span class="glyphicon glyphicon-triangle-top"></span>';
+         }
         }
-      },
       ],
     //order on first data column
     'order': [[1, 'asc']],
@@ -162,13 +154,13 @@ $(document).ready(function() {
 
   function clearSearch(column_idx) {
     $('#search-bar').val('');
-    search_content = ''
+    search_content = '';
     handleSearchChange(column_idx);
   }
 
   function clearSelectors() {
     for (var i = 0; i < 5; ++i) {
-      $(column_selectors[i] + 'options').val('')
+      $(column_selectors[i] + 'options').val('');
     }
     handleSelectionChange(0);
   }
@@ -180,8 +172,8 @@ $(document).ready(function() {
     handleSearchChange(column_idx);
   });
   */
-  var search_content = ''
-  $('#search-btn').on('click', function() {
+  var search_content = '';
+  $('#search-bar').on('change keyup copy', function() {
     var column_idx = $('#column-select').val();
     search_content = $('#search-bar').val();
     handleSearchChange(column_idx);
@@ -364,10 +356,9 @@ $(document).ready(function() {
   });
 
   function toggleShowSelected() {
-    $('#show-selected').toggleClass('disabled')
-    $('#show-all').toggleClass('disabled')
+    $('#show-selected').toggleClass('disabled');
+    $('#show-all').toggleClass('disabled');
   }
 
   $(".chosen").chosen();
-
 });
