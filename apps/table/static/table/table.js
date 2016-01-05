@@ -53,7 +53,8 @@ $(document).ready(function() {
          'searchable': false,
          'orderable': false,
          'render': function () {
-          return '<span class="glyphicon glyphicon-triangle-top"></span>';
+          //return '<span class="glyphicon glyphicon-triangle-top"></span>';
+          return '<a href=#><i>more...</i></a>';
          }
         }
       ],
@@ -105,6 +106,9 @@ $(document).ready(function() {
   }
 
   //scripts for row expansion
+
+
+  /* old script to expand when user clicks anywhere on row
   $('#bw-table').on("click", 'tbody tr', function() {
       //important: must be before row selection
     var tr = $(this);
@@ -119,6 +123,15 @@ $(document).ready(function() {
         row.child(format(row.data()), 'child').show();
       }
   });
+  */
+
+  //scripts for checkbox
+  $('#bw-table').on("click", 'tbody tr', function() {
+    var tr = $(this);
+    var row = main_table.row(tr);
+    var chkbx = tr.find('input[type=checkbox]');
+    chkbx.click();
+  })
 
 
   //child table to generate on expension
