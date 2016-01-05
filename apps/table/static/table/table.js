@@ -54,7 +54,7 @@ $(document).ready(function() {
          'orderable': false,
          'render': function () {
           //return '<span class="glyphicon glyphicon-triangle-top"></span>';
-          return '<a href=#><i>more...</i></a>';
+          return '<a class="more" href=#><i>more...</i></a>';
          }
         }
       ],
@@ -85,7 +85,7 @@ $(document).ready(function() {
   }
 
   $('#bw-table').on('click', 'input[type="checkbox"]', function(event){
-      //important: must be before row expension
+      //important: must be before row click
       event.stopPropagation();
       updateSelectCount();
     });
@@ -106,7 +106,20 @@ $(document).ready(function() {
   }
 
   //scripts for row expansion
-
+  $('#bw-table').on("click", '.more', function(event) {
+    //important: must be before row click
+    event.stopPropagation();
+    var tr = $(this).closest('tr');
+    var row = main_table.row(tr);
+    //toggle arrow icon
+    if ( row.child.isShown() ) {
+      // close row if open
+      row.child.hide();
+      } else {
+        // open row if closed
+        row.child(format(row.data()), 'child').show();
+      }
+  });
 
   /* old script to expand when user clicks anywhere on row
   $('#bw-table').on("click", 'tbody tr', function() {
