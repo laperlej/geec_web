@@ -8,7 +8,7 @@ $(document).ready(function() {
     "scroller": true,
     "scrollCollapse": true,
     //only load entries the user can see
-    "deferRender": true,
+    //"deferRender": true,
     "searching": true,
     //display message while loading
     "processing": true,
@@ -77,11 +77,11 @@ $(document).ready(function() {
   });
 
   function selectAll(){
-    $(':checkbox').prop('checked', true);
+    $(':checkbox', main_table.rows({filter:'applied'}).nodes()).prop('checked', true);
   }
 
   function unselectAll(){
-    $(':checkbox').prop('checked', false);
+    $(':checkbox', main_table.rows({filter:'applied'}).nodes()).prop('checked', false);
   }
 
   $('#bw-table').on('click', 'input[type="checkbox"]', function(event){
