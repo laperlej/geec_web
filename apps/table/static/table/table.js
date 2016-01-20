@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  var all_checkboxes;
   //initialise DataTables plugin
   var main_table = $('#bw-table').DataTable( {
     //remove everything but the header and table
@@ -63,6 +64,7 @@ $(document).ready(function() {
     "fnInitComplete": function(oSettings, json) {
       updateShownCount();
       $('#galaxy-warning').modal('show');
+      all_checkboxes = $(':checkbox', main_table.rows({filter:'applied'}).nodes())
     }
   });
 
@@ -77,11 +79,13 @@ $(document).ready(function() {
   });
 
   function selectAll(){
-    $(':checkbox', main_table.rows({filter:'applied'}).nodes()).prop('checked', true);
+    all_checkboxes.prop('checked', true);
+    //$(':checkbox', main_table.rows({filter:'applied'}).nodes()).prop('checked', true);
   }
 
   function unselectAll(){
-    $(':checkbox', main_table.rows({filter:'applied'}).nodes()).prop('checked', false);
+    all_checkboxes.prop('checked', false);
+    //$(':checkbox', main_table.rows({filter:'applied'}).nodes()).prop('checked', false);
   }
 
   $('#bw-table').on('click', 'input[type="checkbox"]', function(event){
