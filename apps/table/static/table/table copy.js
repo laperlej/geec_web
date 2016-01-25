@@ -1,16 +1,16 @@
 $(document).ready(function() {
-  var all_checkboxes;
   //initialise DataTables plugin
   var main_table = $('#bw-table').DataTable( {
-    //remove everything but the header and table
-    'sDom': 'Ht',
+    //remove everything but the main table
+    "paging": false,
     "info": false,
-    "scrollY": newTableHeight(),
-    "scroller": true,
-    "scrollCollapse": true,
-    //only load entries the user can see
-    //"deferRender": true,
     "searching": true,
+    "scrollCollapse": true,
+    "fixedHeader": true,
+    "sScrollY" : newTableHeight(),
+    'sDom': '<#content-search>Ht',
+    //only load entries the user can see
+    "deferRender": true,
     //display message while loading
     "processing": true,
     //load json static file
@@ -20,6 +20,12 @@ $(document).ready(function() {
       "dataSrc": "dataset"
     },
     //associate json elements to columns(in order)
+    "columnDefs": [ {
+      "targets": 5,
+      "data": function (row, type, val, meta) {
+        return basename(val);
+      }
+    }],
     "columns": [
         //checkboxes
         {'searchable': false,
@@ -49,22 +55,21 @@ $(document).ready(function() {
          }
         },*/
         //more info
-        {'width': 1,
+        {
+         'width': 1,
          'className': 'more-info dt-center',
          'searchable': false,
          'orderable': false,
          'render': function () {
-          //return '<span class="glyphicon glyphicon-triangle-top"></span>';
-          return '<a class="more" href=#><i>more...</i></a>';
-         }
+          return '<span class="glyphicon glyphicon-triangle-top"></span>';
         }
+      },
       ],
     //order on first data column
     'order': [[1, 'asc']],
     "fnInitComplete": function(oSettings, json) {
       updateShownCount();
       $('#galaxy-warning').modal('show');
-      all_checkboxes = $(':checkbox', main_table.rows({filter:'applied'}).nodes());
     }
   });
 
@@ -79,23 +84,15 @@ $(document).ready(function() {
   });
 
   function selectAll(){
-    if (main_table.page.info().recordsDisplay == main_table.page.info().recordsTotal) {
-      all_checkboxes.prop('checked', true);
-    } else {
-      $(':checkbox', main_table.rows({filter:'applied'}).nodes()).prop('checked', true);
-    }
+    $(':checkbox').prop('checked', true);
   }
 
   function unselectAll(){
-    if (main_table.page.info().recordsDisplay == main_table.page.info().recordsTotal) {
-      all_checkboxes.prop('checked', false);
-    } else {
-      $(':checkbox', main_table.rows({filter:'applied'}).nodes()).prop('checked', false);
-    }
+    $(':checkbox').prop('checked', false);
   }
 
   $('#bw-table').on('click', 'input[type="checkbox"]', function(event){
-      //important: must be before row click
+      //important: must be before row expension
       event.stopPropagation();
       updateSelectCount();
     });
@@ -111,27 +108,11 @@ $(document).ready(function() {
   }
 
   function updateShownCount(){
-    var len = main_table.page.info().recordsDisplay;
+    var len = main_table.rows( { filter: 'applied' } ).data().toArray().length;
     $('#shown-count').text(len);
   }
 
   //scripts for row expansion
-  $('#bw-table').on("click", '.more', function(event) {
-    //important: must be before row click
-    event.stopPropagation();
-    var tr = $(this).closest('tr');
-    var row = main_table.row(tr);
-    //toggle arrow icon
-    if ( row.child.isShown() ) {
-      // close row if open
-      row.child.hide();
-      } else {
-        // open row if closed
-        row.child(format(row.data()), 'child').show();
-      }
-  });
-
-  /* old script to expand when user clicks anywhere on row
   $('#bw-table').on("click", 'tbody tr', function() {
       //important: must be before row selection
     var tr = $(this);
@@ -145,15 +126,6 @@ $(document).ready(function() {
         // open row if closed
         row.child(format(row.data()), 'child').show();
       }
-  });
-  */
-
-  //scripts for checkbox
-  $('#bw-table').on("click", 'tbody tr', function() {
-    var tr = $(this);
-    var row = main_table.row(tr);
-    var chkbx = tr.find('input[type=checkbox]');
-    chkbx.click();
   });
 
 
@@ -190,13 +162,13 @@ $(document).ready(function() {
 
   function clearSearch(column_idx) {
     $('#search-bar').val('');
-    search_content = '';
+    search_content = ''
     handleSearchChange(column_idx);
   }
 
   function clearSelectors() {
     for (var i = 0; i < 5; ++i) {
-      $(column_selectors[i] + 'options').val('');
+      $(column_selectors[i] + 'options').val('')
     }
     handleSelectionChange(0);
   }
@@ -208,8 +180,8 @@ $(document).ready(function() {
     handleSearchChange(column_idx);
   });
   */
-  var search_content = '';
-  $('#search-bar').on('change keyup copy', function() {
+  var search_content = ''
+  $('#search-btn').on('click', function() {
     var column_idx = $('#column-select').val();
     search_content = $('#search-bar').val();
     handleSearchChange(column_idx);
@@ -392,9 +364,10 @@ $(document).ready(function() {
   });
 
   function toggleShowSelected() {
-    $('#show-selected').toggleClass('disabled');
-    $('#show-all').toggleClass('disabled');
+    $('#show-selected').toggleClass('disabled')
+    $('#show-all').toggleClass('disabled')
   }
 
   $(".chosen").chosen();
+
 });
