@@ -1,0 +1,107 @@
+{% extends "table/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="page-header">
+    <!--header section-->
+    <h2>GeEC Public Datasets <small>more information</small></h2>
+  </div>
+  <div class="row form-group">
+    <!--filter section-->
+    <!--Select an assembly-->
+    <div class="col-xs-2">
+      <select class="form-control" id="assembly-select">
+        <option value='hg19' disabled selected>Assembly</option>
+        <option value='hg19'>hg19</option>
+      </select>
+    </div>
+    <div class="col-xs-3">
+      <!--Select a column-->
+      <select class="form-control" id="column-select">
+        <option value='null' disabled selected>Filter on column</option>
+        <option value='null'>Any</option>
+        <option value="1">Assay</option>
+        <option value="2">Assay Category</option>
+        <option value="3">Cell Type</option>
+        <option value="4">Cell Type Category</option>
+        <option value="5">File Name</option>
+        <option value="6">Releasing Group</option>
+      </select>
+      <!--Search bar-->
+      </div>
+      <div class="col-xs-4 nopadding">
+        <input type="text" class="form-control" placeholder="Search" id="search-bar">
+      </div>
+    </div>
+  <div class="row">
+    <!--table section-->
+    <div class="col-xs-12">
+      <!--main table-->
+      <small>
+        <table id="bw-table" class="display compact nowrap">
+          <thead id="table-header">
+            <tr>
+              <th class="dt-center"><input id="select-all" type="checkbox"></th>
+              <th>Assay</th>
+              <th>Assay Category</th>
+              <th>Cell Type</th>
+              <th>Cell Type Category</th>
+              <th>File Name</th>
+              <th>Institution</th>
+              <th></th>
+            </tr>
+          </thead>
+        </table>
+      </small>
+    </div>
+  </div>
+  <div class="row page-footer">
+    <div class="col-xs-4 btn-group">
+      <!--footer section-->
+      <button id="show-selected" class="btn btn-primary show-group">Show selected</button>
+      <button id="show-all" class="btn btn-primary show-group">Show all</button>
+    </div>
+    <div class="col-xs-8 nowrap">
+      <!--submit button-->
+      <button id="submit" class="btn btn-primary disabled pull-right"><span class="glyphicon glyphicon-check"></span> Send To Galaxy</button>
+      <!--Dataset count-->
+      <label for="submit" id="counters" class="pull-right"><span id="shown-count">0</span> datasets displayed, <span id="select-count">0</span> selected</label>
+    </div>
+  </div>
+</div>
+
+<!--output form if user comes from galaxy-->
+{% if request.GET.sendToGalaxy %}
+<form id="galaxy-form" action="{{galaxy_url}}" method="POST">
+  <input type="HIDDEN" id="tool_id" name="tool_id" value="{{tool_id}}"/>
+  <input type="HIDDEN" name="URL" value="{{ url }}data/">
+  <input type="HIDDEN" name="dbkey" value="hg19">
+  <input type="HIDDEN" name="URL_method" value="post">
+  <input type="HIDDEN" id="datasets" name="datasets" value="">
+</form>
+{% else %}
+<!--Warning if not from galaxy-->
+<div id="galaxy-warning" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Warning: Some functionalities may be unavailable</h4>
+      </div>
+      <div class="modal-body">
+        <p>stuff about geec</p>
+        <p>stuff about galaxy</p>
+        <p>stuff about genap</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default">Go to genap</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}

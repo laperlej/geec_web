@@ -1,0 +1,47 @@
+body {
+  min-width: 720px;
+}
+
+#select-all {
+  /*exact px for center-align
+  of header row checkbox*/
+  margin-left: 13px;
+}
+
+#bw-table {
+  border-spacing: 0px;
+  width: 100%;
+}
+
+.page-header{
+  margin-top: 30px;
+  margin-bottom: 19px;
+}
+
+.page-footer{
+  margin-top: 12px;
+}
+
+/*
+.show-group{
+  width: 125px;
+}
+*/
+
+#counters{
+  margin-top: 8px;
+  margin-right: 15px;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}
+
+/*remove hover effect from child rows*/
+table.dataTable.display tbody tr.child {
+  background: white;
+}
+table.dataTable.display tbody tr table tr:hover {
+  background: none;
+}
