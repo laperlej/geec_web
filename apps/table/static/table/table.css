@@ -1,5 +1,30 @@
 body {
-  min-width: 720px;
+  min-width: 1650px;
+}
+
+.chosen-container{
+  font-size: 80% !important;
+}
+
+#rel-group-select{
+  width: 100%;
+}
+
+.dataTables_scrollHead{
+  overflow: visible !important;
+}
+
+#search-row{
+  margin-bottom: 5px !important;
+}
+
+#assembly-select{
+  width: 170px;
+}
+
+#release-row{
+  margin-bottom: 15px !important;
+  margin-left: 16px !important;
 }
 
 #select-all {

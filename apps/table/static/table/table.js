@@ -1,31 +1,25 @@
 $(document).ready(function() {
+  var all_checkboxes;
   //initialise DataTables plugin
   var main_table = $('#bw-table').DataTable( {
-    //remove everything but the main table
-    "paging": false,
+    //remove everything but the header and table
+    'sDom': 'Ht',
     "info": false,
-    "searching": true,
+    "scrollY": newTableHeight(),
+    "scroller": true,
     "scrollCollapse": true,
-    "fixedHeader": true,
-    "sScrollY" : newTableHeight(),
-    'sDom': '<#content-search>Ht',
     //only load entries the user can see
-    "deferRender": true,
+    //"deferRender": true,
+    "searching": true,
     //display message while loading
     "processing": true,
     //load json static file
     "ajax": {
       "url": ihecJson,
       "table": '#bw-table',
-      "dataSrc": "dataset"
+      "dataSrc": "datasets"
     },
     //associate json elements to columns(in order)
-    "columnDefs": [ {
-      "targets": 5,
-      "data": function (row, type, val, meta) {
-        return basename(val);
-      }
-    }],
     "columns": [
         //checkboxes
         {'searchable': false,
@@ -41,12 +35,13 @@ $(document).ready(function() {
         {"data": "assay_category"},
         {"data": "cell_type"},
         {"data": "cell_type_category"},
+        {"data": "analysis_group"},
         {"visible": false,
         'className': 'never',
-        'data':"qcTrackInternalFilePath"},
+        'data':"file_name"},
         {"visible": false,
         'className': 'never',
-        'data':"releasing_group"},
+        'data':"publishing_group"},
         /*
         {//"visible": false,
          'render': function () {
@@ -54,24 +49,24 @@ $(document).ready(function() {
          }
         },*/
         //more info
-        {
-         'width': 1,
+        {'width': 1,
          'className': 'more-info dt-center',
          'searchable': false,
          'orderable': false,
          'render': function () {
-          return '<span class="glyphicon glyphicon-triangle-top"></span>';
+          //return '<span class="glyphicon glyphicon-triangle-top"></span>';
+          return '<a class="more" href=#><i>more...</i></a>';
+         }
         }
-      },
       ],
     //order on first data column
     'order': [[1, 'asc']],
     "fnInitComplete": function(oSettings, json) {
       updateShownCount();
       $('#galaxy-warning').modal('show');
+      all_checkboxes = $(':checkbox', main_table.rows({filter:'applied'}).nodes());
     }
-  } );
-
+  });
 
   //scripts for selection
   $('#select-all').on("click", function(e) {
@@ -84,15 +79,23 @@ $(document).ready(function() {
   });
 
   function selectAll(){
-    $(':checkbox').prop('checked', true);
+    if (main_table.page.info().recordsDisplay == main_table.page.info().recordsTotal) {
+      all_checkboxes.prop('checked', true);
+    } else {
+      $(':checkbox', main_table.rows({filter:'applied'}).nodes()).prop('checked', true);
+    }
   }
 
   function unselectAll(){
-    $(':checkbox').prop('checked', false);
+    if (main_table.page.info().recordsDisplay == main_table.page.info().recordsTotal) {
+      all_checkboxes.prop('checked', false);
+    } else {
+      $(':checkbox', main_table.rows({filter:'applied'}).nodes()).prop('checked', false);
+    }
   }
 
   $('#bw-table').on('click', 'input[type="checkbox"]', function(event){
-      //important: must be before row expension
+      //important: must be before row click
       event.stopPropagation();
       updateSelectCount();
     });
@@ -108,25 +111,50 @@ $(document).ready(function() {
   }
 
   function updateShownCount(){
-    var len = main_table.rows( { filter: 'applied' } ).data().toArray().length;
+    var len = main_table.page.info().recordsDisplay;
     $('#shown-count').text(len);
   }
 
   //scripts for row expansion
+  $('#bw-table').on("click", '.more', function(event) {
+    //important: must be before row click
+    event.stopPropagation();
+    var tr = $(this).closest('tr');
+    var row = main_table.row(tr);
+    //toggle arrow icon
+    if ( row.child.isShown() ) {
+      // close row if open
+      row.child.hide();
+      } else {
+        // open row if closed
+        row.child(format(row.data()), 'child').show();
+      }
+  });
+
+  /* old script to expand when user clicks anywhere on row
   $('#bw-table').on("click", 'tbody tr', function() {
       //important: must be before row selection
-      var tr = $(this);
-      var row = main_table.row(tr);
-      //toggle arrow icon
-      tr.find('span:first').toggleClass('glyphicon-triangle-top glyphicon-triangle-bottom');
-      if ( row.child.isShown() ) {
-          // close row if open
-          row.child.hide();
-        } else {
-          // open row if closed
-          row.child(format(row.data()), 'child').show();
-        }
-      });
+    var tr = $(this);
+    var row = main_table.row(tr);
+    //toggle arrow icon
+    tr.find('span:first').toggleClass('glyphicon-triangle-top glyphicon-triangle-bottom');
+    if ( row.child.isShown() ) {
+      // close row if open
+      row.child.hide();
+      } else {
+        // open row if closed
+        row.child(format(row.data()), 'child').show();
+      }
+  });
+  */
+
+  //scripts for checkbox
+  $('#bw-table').on("click", 'tbody tr', function() {
+    var tr = $(this);
+    var row = main_table.row(tr);
+    var chkbx = tr.find('input[type=checkbox]');
+    chkbx.click();
+  });
 
 
   //child table to generate on expension
@@ -134,11 +162,11 @@ $(document).ready(function() {
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
           '<tr>'+
               '<td>File Name:</td>'+
-              '<td>'+basename(data.qcTrackInternalFilePath)+'</td>'+
+              '<td>'+basename(data.file_name)+'</td>'+
           '</tr>'+
           '<tr>'+
-              '<td>Releasing Group:</td>'+
-              '<td>'+data.releasing_group+'</td>'+
+              '<td>Institution:</td>'+
+              '<td>'+data.publishing_group+'</td>'+
           '</tr>'+
           '</table>';
   }
@@ -149,39 +177,163 @@ $(document).ready(function() {
 
 
   //scripts for search
-  var old_column = "-1";
+  var old_column = "null";
   $('#column-select').on('change', function() {
     clearSearch(old_column);
     old_column = $(this).val();
   });
 
-  $('#search-bar').on('keyup paste change', function() {
-    updateSearch();
+  function clearAll() {
+    clearSearch(old_column);
+    clearSelectors();
+  }
+
+  function clearSearch(column_idx) {
+    $('#search-bar').val('');
+    search_content = '';
+    handleSearchChange(column_idx);
+  }
+
+  function clearSelectors() {
+    for (var i = 0; i < 5; ++i) {
+      $(column_selectors[i] + 'options').val('');
+    }
+    handleSelectionChange(0);
+  }
+
+  //search bar filter
+  /*
+  $('#search-bar').on('change keyup copy', function() {
+    var column_idx = $('#column-select').val();
+    handleSearchChange(column_idx);
+  });
+  */
+  var search_content = '';
+  $('#search-bar').on('change keyup copy', function() {
+    var column_idx = $('#column-select').val();
+    search_content = $('#search-bar').val();
+    handleSearchChange(column_idx);
+    main_table.draw();
+    updateShownCount();
   });
 
-  function clearSearch(colIdx) {
-    $('#search-bar').val('');
-    if (colIdx == "-1") {
-      //if -1(any), clear table filter
-      main_table.search('').draw();
+  function handleSearchChange(column_idx) {
+    if (column_idx === "null" || column_idx === null) {
+      //if -1(any), search on all columns
+      main_table.search(search_content);
+      handleSelectionChange(0);
+    } else if (column_idx >= 1 && column_idx <= 5) {
+      handleSelectionChange(column_idx);
     } else {
-      //otherwise clear filter on old column
-      main_table.column(colIdx).search('').draw();
+      applyFilter(getSearchRegex(i), i);
+      handleSelectionChange(0);
     }
-    updateShownCount();
   }
 
-  function updateSearch() {
-    colIdx = $('#column-select').val();
-    if (colIdx === null) {
-      //if -1(any), search on all columns
-      main_table.search($('#search-bar').val()).draw();
-    } else {
-      //otherwise search on specified column
-      main_table.column(colIdx).search($('#search-bar').val()).draw();
-    }
+  //column selectors
+  column_selectors = ['#assay-select', '#assay-cat-select', '#cell-type-select', '#cell-type-cat-select', '#rel-group-select'];
+
+  //handle column selectors
+  $('#assay-select').on('change', function() {
+    handleSelectionChange(1);
+    main_table.draw();
     updateShownCount();
+  });
+  $('#assay-cat-select').on('change', function() {
+    handleSelectionChange(2);
+    main_table.draw();
+    updateShownCount();
+  });
+  $('#cell-type-select').on('change', function() {
+    handleSelectionChange(3);
+    main_table.draw();
+    updateShownCount();
+  });
+  $('#cell-type-cat-select').on('change', function() {
+    handleSelectionChange(4);
+    main_table.draw();
+    updateShownCount();
+  });
+  $('#rel-group-select').on('change', function() {
+    handleSelectionChange(5);
+    main_table.draw();
+    updateShownCount();
+  });
+
+  function handleSelectionChange(column_idx) {
+    //apply new filter
+    if (column_idx !== 0) {
+        updateFilter(column_idx);
+    }
+    //for every column
+    for (var i = 1; i <= 5; ++i) {
+      //if not the column that changed
+      if (i != column_idx) {
+        //apply filter as only search bar
+        if ($(column_selectors[i-1]).val() !== null) {
+            applyFilter(getSearchRegex(i), i);
+            updateSelectionOptions(i);
+            updateFilter(i);
+        } else {
+            updateSelectionOptions(i);
+        }
+      }
+    }
   }
+
+  function updateSelectionOptions(column_idx) {
+    var new_options = main_table.column(column_idx, { search:'applied' }).data().unique().sort();
+    var all_options = $(column_selectors[column_idx-1] + ' option');
+    var k = 0;
+    for (var j = 0; j < new_options.length;++j) {
+      while(new_options[j] != $(all_options[k]).val()) {
+      $(all_options[k]).hide();
+        ++k;
+      }
+        $(all_options[k]).show();
+        ++k;
+    }
+    while(k < all_options.length) {
+      $(all_options[k]).hide();
+      ++k;
+    }
+    $(column_selectors[column_idx-1]).trigger("chosen:updated");
+  }
+
+  function getSearchRegex(column_idx) {
+    var regex = '';
+    if ($('#column-select').val == column_idx) {
+      var search_terms = search_content.split(' ');
+      for (var i = 0; i < search_terms.length; ++i) {
+        regex += "(?=.*" + escapeRegex(search_terms[i]) + ")";
+      }
+    }
+    return regex;
+  };
+
+  function getSelectionRegex(column_idx) {
+    var regex = '';
+    var list = $(column_selectors[column_idx-1]).val();
+    if (list !== null) {
+      regex += list.join('|');
+    }
+    regex = "(?=" + regex + ")";
+    return regex;
+  }
+
+  function getRegex(column_idx) {
+    return getSelectionRegex(column_idx) + getSearchRegex(column_idx);
+  }
+
+  function applyFilter(regex, column_idx) {
+    main_table.column(column_idx).search(regex, true, false);
+  }
+
+  function updateFilter(column_idx) {
+    var regex = getRegex(column_idx);
+    main_table.column(column_idx).search(regex, true, false);
+  }
+
 
   //handle scrolling
   $(window).bind('resize', function () {
@@ -195,7 +347,7 @@ $(document).ready(function() {
 
   function newTableHeight(){
     //adjust whenever layout is changed
-    return $(document).height() - 240;
+    return $(document).height() - 335;
   }
 
   //handling the galaxy form
@@ -211,8 +363,7 @@ $(document).ready(function() {
 
   //show selected
   $('#show-selected').on('click', function() {
-    //clear any search
-    clearSearch(old_column);
+    toggleShowSelected();
     //apply filter on checkbox:checked
     $.fn.dataTable.ext.search.push(function(settings, data, row_idx){
       tr = main_table.row(row_idx).nodes().to$();
@@ -223,18 +374,27 @@ $(document).ready(function() {
         return false;
       }
     });
+    //clear any search
+    clearAll();
     main_table.draw();
     updateShownCount();
   });
 
   //show all
   $('#show-all').on('click', function() {
-    //clear any search
-    clearSearch(old_column);
+    toggleShowSelected();
     //apply filter on checkbox:checked
     $.fn.dataTable.ext.search.pop();
+    //clear any search
+    clearAll();
     main_table.draw();
     updateShownCount();
   });
 
+  function toggleShowSelected() {
+    $('#show-selected').toggleClass('disabled');
+    $('#show-all').toggleClass('disabled');
+  }
+
+  $(".chosen").chosen();
 });
