@@ -17,7 +17,7 @@ $(document).ready(function() {
     "ajax": {
       "url": ihecJson,
       "table": '#bw-table',
-      "dataSrc": "dataset"
+      "dataSrc": "datasets"
     },
     //associate json elements to columns(in order)
     "columns": [
@@ -35,13 +35,13 @@ $(document).ready(function() {
         {"data": "assay_category"},
         {"data": "cell_type"},
         {"data": "cell_type_category"},
-        {"data": "releasing_group"},
+        {"data": "analysis_group"},
         {"visible": false,
         'className': 'never',
-        'data':"qcTrackInternalFilePath"},
+        'data':"file_name"},
         {"visible": false,
         'className': 'never',
-        'data':"institution"},
+        'data':"publishing_group"},
         /*
         {//"visible": false,
          'render': function () {
@@ -162,11 +162,11 @@ $(document).ready(function() {
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
           '<tr>'+
               '<td>File Name:</td>'+
-              '<td>'+basename(data.qcTrackInternalFilePath)+'</td>'+
+              '<td>'+basename(data.file_name)+'</td>'+
           '</tr>'+
           '<tr>'+
               '<td>Institution:</td>'+
-              '<td>'+data.institution+'</td>'+
+              '<td>'+data.publishing_group+'</td>'+
           '</tr>'+
           '</table>';
   }

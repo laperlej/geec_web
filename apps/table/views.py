@@ -15,12 +15,12 @@ def column_content(json_path):
     cell_types = OrderedDict()
     cell_type_cats = OrderedDict()
     rel_groups = OrderedDict()
-    for dataset in content['dataset']:
+    for dataset in content['datasets']:
         assays[dataset['assay']] = None
         assay_cats[dataset['assay_category']] = None
         cell_types[dataset['cell_type']] = None
         cell_type_cats[dataset['cell_type_category']] = None
-        rel_groups[dataset['releasing_group']] = None
+        rel_groups[dataset['analysis_group']] = None
     return {'assays':sorted(assays),
             'assay_cats':sorted(assay_cats),
             'cell_types':sorted(cell_types),
