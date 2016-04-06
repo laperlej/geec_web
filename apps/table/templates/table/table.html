@@ -53,35 +53,35 @@
             <tr>
               <th></th>
               <th>
-                <select class="chosen" id="assay-select" data-placeholder="  Assay" multiple="true">
+                <select class="select2" id="assay-select" placeholder="Assay" multiple="multiple">
                   {% for assay in assays %}
                     <option value="{{assay}}">{{assay}}</option>
                   {% endfor %}
                 </select>
               </th>
               <th>
-                <select class="chosen" id="assay-cat-select" data-placeholder="  Assay Category" multiple="true">
+                <select class="select2" id="assay-cat-select" placeholder="Assay Category" multiple="multiple">
                   {% for assay_cat in assay_cats %}
                     <option value="{{assay_cat}}">{{assay_cat}}</option>
                   {% endfor %}
                 </select>
               </th>
               <th>
-                <select class="chosen" id="cell-type-select" data-placeholder="  Cell Type" multiple="true">
+                <select class="select2" id="cell-type-select" placeholder="Cell Type" multiple="multiple">
                   {% for cell_type in cell_types %}
                     <option value="{{cell_type}}">{{cell_type}}</option>
                   {% endfor %}
                 </select>
               </th>
               <th>
-                <select class="chosen" id="cell-type-cat-select" data-placeholder="  Cell Type Category" multiple="true">
+                <select class="select2" id="cell-type-cat-select" placeholder="Cell Type Category" multiple="multiple">
                   {% for cell_type_cat in cell_type_cats %}
                     <option value="{{cell_type_cat}}">{{cell_type_cat}}</option>
                   {% endfor %}
                 </select>
               </th>
               <th>
-                <select class="chosen" id="rel-group-select" data-placeholder="  Releasing Group" multiple="true">
+                <select class="select2" id="rel-group-select" placeholder="Releasing Group" multiple="multiple">
                   {% for rel_group in rel_groups %}
                     <option value="{{rel_group}}">{{rel_group}}</option>
                   {% endfor %}
@@ -130,6 +130,7 @@
 </form>
 {% else %}
 <!--Warning if not from galaxy-->
+<!--
 <div id="galaxy-warning" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -148,7 +149,7 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
 {% endif %}
 
 {% endblock %}
