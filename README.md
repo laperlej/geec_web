@@ -2,11 +2,21 @@
 
 ###installation
 ```
-sudo apt-get postgresql-9.4
-pip -r requirements.txt
+sudo apt-get install postgresql-9.4
+pip install -r requirements.txt
+```
+
+###config
+```
+cd geec_web/settings
+cp production.py local_settings.py
 ```
 
 ###Usage
 ```
-python manage.py <do something> --settings=geec_web.settings.XYZ
+fab deploy_local
+```
+or 
+```
+fab deploy_prod
 ```
