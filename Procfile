@@ -1,1 +1,1 @@
-web: gunicorn geec_web/wsgi.py --log-file -
+web: gunicorn geec_web.wsgi --log-file -
