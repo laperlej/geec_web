@@ -2,10 +2,6 @@ body {
   min-width: 1650px;
 }
 
-.chosen-container{
-  font-size: 80% !important;
-}
-
 #rel-group-select{
   width: 100%;
 }
@@ -65,6 +61,19 @@ body {
 
 .select2-container--default .select2-results__option[aria-disabled=true] {
     display: none;
+}
+
+.select2-container{
+  font-size: 80% !important;
+  width: auto !important;
+}
+
+.select2-search__field {
+  font-size: 80% !important;
+}
+
+.select2-selection__choice {
+  font-size: 80% !important;
 }
 
 /*remove hover effect from child rows*/
