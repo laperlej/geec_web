@@ -76,6 +76,10 @@ body {
   font-size: 80% !important;
 }
 
+.select2-results__option[aria-disabled=true] {
+    display: none;
+}
+
 /*remove hover effect from child rows*/
 table.dataTable.display tbody tr.child {
   background: white;
