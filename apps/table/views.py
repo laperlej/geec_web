@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import View
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt    
-from django.utils.decorators import method_decorator                                      
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 import json
 import os.path
 from collections import OrderedDict
@@ -29,7 +29,20 @@ def column_content(json_path):
 
 MODULE_DIR = os.path.dirname(os.path.realpath(__file__))
 STATIC_DIR = os.path.join(MODULE_DIR, 'static', 'table')
-hg19_options = column_content(os.path.join(STATIC_DIR, "hg19.json"))
+
+class SelectorCache(object):
+    def __init__(self):
+        self.json_update_time = 0
+        self.options = {}
+
+    def update(self):
+        json_path = os.path.join(STATIC_DIR, "hg19.json")
+        modif_time = os.path.getmtime(json_path)
+        if self.json_update_time < modif_time:
+            self.json_update_time = modif_time
+            self.options = column_content(json_path)
+
+selector_cache = SelectorCache()
 
 # Create your views here.
 class MainView(View):
@@ -40,6 +53,8 @@ class MainView(View):
         tool_id = request.GET.get('tool_id', '')
         send_to_galaxy = request.GET.get('sendToGalaxy', '0')
         url = request.build_absolute_uri(request.path)
+        selector_cache.update()
+        hg19_options = selector_cache.options
         return render(request, 'table/table.html', {
             'galaxy_url': galaxy_url,
             'tool_id': tool_id,

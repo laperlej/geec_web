@@ -1,17 +1,11 @@
-"""
-WSGI config for geec_web project.
-
-It exposes the WSGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.8/howto/deployment/wsgi/
-"""
-
 import os
+import sys
 
 from django.core.wsgi import get_wsgi_application
+sys.path.append('/home/galaxy/geec_web/geec_web')
+sys.path.append("/home/galaxy/geec_web/Library/Python2.7/bin")
+sys.path.append("/home/galaxy/geec_web/.local/bin")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "geec_web.settings.production")
+
 from dj_static import Cling
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "geec_web.settings.development")
-
 application = Cling(get_wsgi_application())

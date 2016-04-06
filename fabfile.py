@@ -8,6 +8,3 @@ def deploy_local():
 
 def deploy_develop():
     local('git push heroku develop:master')
-
-def workon():
-    local('workon geec_web')
