@@ -297,7 +297,10 @@ $(document).ready(function() {
       $(all_options[k]).prop('disabled', true);
       ++k;
     }
-    $(column_selectors[column_idx-1]).trigger("select2:updated");
+    $(column_selectors[column_idx-1]).select2({
+      placeholder: $(this).attr('placeholder'),
+      theme: "bootstrap"
+    });
   }
 
   function getSearchRegex(column_idx) {
