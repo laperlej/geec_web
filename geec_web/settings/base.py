@@ -39,7 +39,7 @@ SECRET_KEY = secret.load_secret_key(SECRET_FILE, 50)
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'geec.herokuapp.com']
 
@@ -118,3 +118,8 @@ USE_TZ = True
 STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'static'))
 
 STATIC_URL = '/static/'
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
