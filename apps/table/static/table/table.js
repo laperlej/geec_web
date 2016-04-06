@@ -298,7 +298,7 @@ $(document).ready(function() {
       ++k;
     }
     $(column_selectors[column_idx-1]).select2({
-      placeholder: $(this).attr('placeholder'),
+      placeholder: $(column_selectors[column_idx-1]).attr('placeholder'),
       theme: "bootstrap"
     });
   }
