@@ -1,0 +1,37 @@
+{% extends "table/base.html" %}
+{% load static %}
+
+{% block content %}
+<div style="white-space: nowrap">
+    <img id="matrix_img" src="data:image/png;base64,{{content}}" style="display: none"/>
+    <div id = "matrix_labels" class="text-nowrap">
+    {% for label in labels %}
+    {{label}}</br>
+    {% endfor %}
+    </div>
+    <div id="matrix_div">
+      <div id="tooltip"></div>
+      <canvas id="myCanvas" width="3000" height="3000" style="border:1px solid #d3d3d3;">
+        Your browser does not support the HTML5 canvas tag.
+      </canvas>
+    </div>
+</div>
+
+<script>
+window.onload = function() {
+    var len = {{len}};
+    var scaling_factor = 15;
+    canvas = document.getElementById("myCanvas");
+    canvas.width = len*scaling_factor+2;
+    canvas.height = len*scaling_factor+2;
+    var ctx = canvas.getContext("2d");
+    ctx.mozImageSmoothingEnabled = false;
+    ctx.imageSmoothingEnabled = false;
+    ctx.msImageSmoothingEnabled = false;
+    ctx.imageSmoothingEnabled = false;
+    var img = document.getElementById("matrix_img");
+    ctx.drawImage(img, 0,0,len,len,0,0,len*scaling_factor,len*scaling_factor);
+}
+</script>
+
+{% endblock %}
