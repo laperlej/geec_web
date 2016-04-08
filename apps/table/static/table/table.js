@@ -287,17 +287,20 @@ $(document).ready(function() {
     var k = 0;
     for (var j = 0; j < new_options.length;++j) {
       while(new_options[j] != $(all_options[k]).val()) {
-      $(all_options[k]).hide();
+      $(all_options[k]).prop('disabled', true);
         ++k;
       }
-        $(all_options[k]).show();
+        $(all_options[k]).prop('disabled', false);
         ++k;
     }
     while(k < all_options.length) {
-      $(all_options[k]).hide();
+      $(all_options[k]).prop('disabled', true);
       ++k;
     }
-    $(column_selectors[column_idx-1]).trigger("chosen:updated");
+    $(column_selectors[column_idx-1]).select2({
+      placeholder: $(column_selectors[column_idx-1]).attr('placeholder'),
+      theme: "bootstrap"
+    });
   }
 
   function getSearchRegex(column_idx) {
@@ -396,5 +399,10 @@ $(document).ready(function() {
     $('#show-all').toggleClass('disabled');
   }
 
-  $(".chosen").chosen();
+  $(".select2").each(function() {
+    $(this).select2({
+      placeholder: $(this).attr('placeholder'),
+      theme: "bootstrap"
+    });
+  });
 });

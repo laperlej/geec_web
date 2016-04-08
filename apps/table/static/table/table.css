@@ -2,10 +2,6 @@ body {
   min-width: 1650px;
 }
 
-.chosen-container{
-  font-size: 80% !important;
-}
-
 #rel-group-select{
   width: 100%;
 }
@@ -19,7 +15,7 @@ body {
 }
 
 #assembly-select{
-  width: 170px;
+  /*width: 170px;*/
 }
 
 #release-row{
@@ -61,6 +57,27 @@ body {
 .nopadding {
    padding: 0 !important;
    margin: 0 !important;
+}
+
+.select2-container--default .select2-results__option[aria-disabled=true] {
+    display: none;
+}
+
+.select2-container{
+  font-size: 80% !important;
+  width: 80% !important;
+}
+
+.select2-search__field {
+  font-size: 80% !important;
+}
+
+.select2-selection__choice {
+  font-size: 80% !important;
+}
+
+.select2-results__option[aria-disabled=true] {
+    display: none;
 }
 
 /*remove hover effect from child rows*/

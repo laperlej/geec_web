@@ -10,10 +10,14 @@
   <div class="row form-group nopadding" id="search-row">
     <!--filter section-->
     <!--Select an assembly-->
-    <div class="col-xs-3">
+    <div class="col-xs-2 form-inline">
       <select class="form-control" id="assembly-select">
         <option value='hg19' disabled selected>Assembly</option>
         <option value='hg19' selected="True">hg19</option>
+      </select>
+      <select class="form-control" id="rel-select">
+        <option value='mar16' disabled selected>Release Date</option>
+        <option value='mar16' selected="True">mar16</option>
       </select>
     </div>
     <div class="col-xs-2">
@@ -36,8 +40,7 @@
     </div>
   </div>
   <div class="row" id="release-row">
-    <div class="col-xs-3 nowrap">
-      <span><i>relDate: Sept15</i></span>
+    <div class="col-xs-2 nowrap">
     </div>
     <div class="col-xs-3 nopadding nowrap">
       <a href='#'>Advanced Selection</a>
@@ -53,35 +56,35 @@
             <tr>
               <th></th>
               <th>
-                <select class="chosen" id="assay-select" data-placeholder="  Assay" multiple="true">
+                <select class="select2" id="assay-select" placeholder="Assay" multiple="multiple">
                   {% for assay in assays %}
                     <option value="{{assay}}">{{assay}}</option>
                   {% endfor %}
                 </select>
               </th>
               <th>
-                <select class="chosen" id="assay-cat-select" data-placeholder="  Assay Category" multiple="true">
+                <select class="select2" id="assay-cat-select" placeholder="Assay Category" multiple="multiple">
                   {% for assay_cat in assay_cats %}
                     <option value="{{assay_cat}}">{{assay_cat}}</option>
                   {% endfor %}
                 </select>
               </th>
               <th>
-                <select class="chosen" id="cell-type-select" data-placeholder="  Cell Type" multiple="true">
+                <select class="select2" id="cell-type-select" placeholder="Cell Type" multiple="multiple">
                   {% for cell_type in cell_types %}
                     <option value="{{cell_type}}">{{cell_type}}</option>
                   {% endfor %}
                 </select>
               </th>
               <th>
-                <select class="chosen" id="cell-type-cat-select" data-placeholder="  Cell Type Category" multiple="true">
+                <select class="select2" id="cell-type-cat-select" placeholder="Cell Type Category" multiple="multiple">
                   {% for cell_type_cat in cell_type_cats %}
                     <option value="{{cell_type_cat}}">{{cell_type_cat}}</option>
                   {% endfor %}
                 </select>
               </th>
               <th>
-                <select class="chosen" id="rel-group-select" data-placeholder="  Releasing Group" multiple="true">
+                <select class="select2" id="rel-group-select" placeholder="Releasing Group" multiple="multiple">
                   {% for rel_group in rel_groups %}
                     <option value="{{rel_group}}">{{rel_group}}</option>
                   {% endfor %}
@@ -130,6 +133,7 @@
 </form>
 {% else %}
 <!--Warning if not from galaxy-->
+<!--
 <div id="galaxy-warning" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -148,7 +152,7 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
 {% endif %}
 
 {% endblock %}
