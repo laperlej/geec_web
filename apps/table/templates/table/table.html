@@ -11,14 +11,18 @@
     <!--filter section-->
     <!--Select an assembly-->
     <div class="col-xs-2 form-inline">
-      <select class="form-control" id="assembly-select">
-        <option value='hg19' disabled selected>Assembly</option>
-        <option value='hg19' selected="True">hg19</option>
-      </select>
-      <select class="form-control" id="rel-select">
-        <option value='mar16' disabled selected>Release Date</option>
-        <option value='mar16' selected="True">mar16</option>
-      </select>
+      <form class = "form-horizontal">
+        <div class="form-group form-inline">
+          <select class="form-control" id="assembly-select">
+            <option value='hg19' disabled selected>Assembly</option>
+            <option value='hg19' selected="True">hg19</option>
+          </select>
+          <select class="form-control" id="rel-select">
+            <option value='mar16' disabled selected>Release Date</option>
+            <option value='mar16' selected="True">mar16</option>
+          </select>
+        </div>
+      </form>
     </div>
     <div class="col-xs-2">
       <!--Select a column-->
