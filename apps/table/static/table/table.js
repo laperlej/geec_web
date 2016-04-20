@@ -320,7 +320,7 @@ $(document).ready(function() {
     if (list !== null) {
       regex += list.join('|');
     }
-    regex = "(?=" + regex + ")";
+    regex = "(?=^" + regex + "$)";
     return regex;
   }
 
