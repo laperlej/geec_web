@@ -31,18 +31,22 @@ MODULE_DIR = os.path.dirname(os.path.realpath(__file__))
 STATIC_DIR = os.path.join(MODULE_DIR, 'static', 'table')
 
 class SelectorCache(object):
-    def __init__(self):
+    def __init__(self, file="hg19.json"):
+        self.file = file
         self.json_update_time = 0
         self.options = {}
 
     def update(self):
-        json_path = os.path.join(STATIC_DIR, "hg19.json")
+        json_path = os.path.join(STATIC_DIR, self.file)
         modif_time = os.path.getmtime(json_path)
         if self.json_update_time < modif_time:
             self.json_update_time = modif_time
             self.options = column_content(json_path)
 
-selector_cache = SelectorCache()
+selector_cache = {}
+selector_cache["hg19_4-16"] = SelectorCache("hg19_4-16.json")
+selector_cache["hg19_3-16"] = SelectorCache("hg19_3-16.json")
+selector_cache["hg19_test"] = SelectorCache("hg19_test.json")
 
 # Create your views here.
 class MainView(View):
@@ -52,11 +56,13 @@ class MainView(View):
         galaxy_url = request.GET.get('GALAXY_URL', '')
         tool_id = request.GET.get('tool_id', '')
         send_to_galaxy = request.GET.get('sendToGalaxy', '0')
+        release = request.GET.get('release', 'hg19_4-16')
         url = request.build_absolute_uri(request.path)
-        selector_cache.update()
-        hg19_options = selector_cache.options
+        selector_cache[release].update()
+        hg19_options = selector_cache[release].options
         return render(request, 'table/table.html', {
             'galaxy_url': galaxy_url,
+            'release': release,
             'tool_id': tool_id,
             'send_to_galaxy': send_to_galaxy,
             'assays': hg19_options['assays'],

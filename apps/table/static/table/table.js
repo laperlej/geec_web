@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  $("#rel-select").val(release);
   var all_checkboxes;
   //initialise DataTables plugin
   var main_table = $('#bw-table').DataTable( {
@@ -15,7 +16,7 @@ $(document).ready(function() {
     "processing": true,
     //load json static file
     "ajax": {
-      "url": ihecJson,
+      "url": jsonPath,
       "table": '#bw-table',
       "dataSrc": "datasets"
     },
@@ -66,6 +67,10 @@ $(document).ready(function() {
       $('#galaxy-warning').modal('show');
       all_checkboxes = $(':checkbox', main_table.rows({filter:'applied'}).nodes());
     }
+  });
+
+  $('#rel-select').on("change", function(e) {
+    $("#release-form").submit();
   });
 
   //scripts for selection

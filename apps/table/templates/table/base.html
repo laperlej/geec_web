@@ -38,7 +38,7 @@
   <!--Select2-->
   <script defer type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
   <!--self-->
-  <script>var ihecJson = "{% static "table/hg19.json" %}";</script>
+  <script>var release = "{{release}}"; var jsonPath = "{% get_static_prefix %}table/{{release}}.json"</script>
   <script defer type="text/javascript" src="{% static "table/table.js" %}"></script>
 </body>
 </html>
