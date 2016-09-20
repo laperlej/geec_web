@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  $("#rel-select").val(release);
   var all_checkboxes;
   //initialise DataTables plugin
   var main_table = $('#bw-table').DataTable( {
@@ -15,7 +16,7 @@ $(document).ready(function() {
     "processing": true,
     //load json static file
     "ajax": {
-      "url": ihecJson,
+      "url": jsonPath,
       "table": '#bw-table',
       "dataSrc": "datasets"
     },
@@ -31,17 +32,17 @@ $(document).ready(function() {
          }
         },
         //data
-        {"data": "assay"},
-        {"data": "assay_category"},
-        {"data": "cell_type"},
-        {"data": "cell_type_category"},
-        {"data": "analysis_group"},
+        {"data": "assay", 'defaultContent': 'N/A'},
+        {"data": "assay_category", 'defaultContent': 'N/A'},
+        {"data": "cell_type", 'defaultContent': 'N/A'},
+        {"data": "cell_type_category", 'defaultContent': 'N/A'},
+        {"data": "analysis_group", 'defaultContent': 'N/A'},
         {"visible": false,
         'className': 'never',
-        'data':"file_name"},
+        'data':"file_name", 'defaultContent': 'N/A'},
         {"visible": false,
         'className': 'never',
-        'data':"publishing_group"},
+        'data':"publishing_group", 'defaultContent': 'N/A'},
         /*
         {//"visible": false,
          'render': function () {
@@ -66,6 +67,10 @@ $(document).ready(function() {
       $('#galaxy-warning').modal('show');
       all_checkboxes = $(':checkbox', main_table.rows({filter:'applied'}).nodes());
     }
+  });
+
+  $('#rel-select').on("change", function(e) {
+    $("#release-form").submit();
   });
 
   //scripts for selection
@@ -320,7 +325,7 @@ $(document).ready(function() {
     if (list !== null) {
       regex += list.join('|');
     }
-    regex = "(?=" + regex + ")";
+    regex = "(?=^" + regex + ")";
     return regex;
   }
 
@@ -358,7 +363,7 @@ $(document).ready(function() {
     var data = main_table.rows(':has(:checkbox:checked)').data();
     var text = "@\n";
     for (i = 0; i < data.length; i++) {
-      text += data[i].qcTrackMd5 + "\n";
+      text += data[i].md5sum + "\n";
     }
     $("#datasets").val(text);
     $("#galaxy-form").submit();

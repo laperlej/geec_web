@@ -11,15 +11,16 @@
     <!--filter section-->
     <!--Select an assembly-->
     <div class="col-xs-2 form-inline">
-      <form class = "form-horizontal">
+      <form id="release-form" action="{{ url }}" method="GET" class = "form-horizontal">
         <div class="form-group form-inline">
-          <select class="form-control" id="assembly-select">
-            <option value='hg19' disabled selected>Assembly</option>
-            <option value='hg19' selected="True">hg19</option>
-          </select>
-          <select class="form-control" id="rel-select">
-            <option value='mar16' disabled selected>Release Date</option>
-            <option value='mar16' selected="True">mar16</option>
+          <input type="HIDDEN" id="tool_id" name="tool_id" value="{{tool_id}}"/>
+          <input type="HIDDEN" id="GALAXY_URL" name="GALAXY_URL" value="{{galaxy_url}}"/>
+          <input type="HIDDEN" id="sendToGalaxy" name="sendToGalaxy" value="{{send_to_galaxy}}"/>
+          <select class="form-control" id="rel-select" name="release">
+            <option value='release' disabled selected>Release</option>
+            <option value='hg19_3-16' selected="False">hg19_3-16</option>
+            <option value='hg19_4-16' selected="True">hg19_4-16</option>
+            <option value='hg19_test' selected="False">hg19_test</option>
           </select>
         </div>
       </form>
