@@ -32,17 +32,17 @@ $(document).ready(function() {
          }
         },
         //data
-        {"data": "assay"},
-        {"data": "assay_category"},
-        {"data": "cell_type"},
-        {"data": "cell_type_category"},
-        {"data": "analysis_group"},
+        {"data": "assay", 'defaultContent': 'N/A'},
+        {"data": "assay_category", 'defaultContent': 'N/A'},
+        {"data": "cell_type", 'defaultContent': 'N/A'},
+        {"data": "cell_type_category", 'defaultContent': 'N/A'},
+        {"data": "analysis_group", 'defaultContent': 'N/A'},
         {"visible": false,
         'className': 'never',
-        'data':"file_name"},
+        'data':"file_name", 'defaultContent': 'N/A'},
         {"visible": false,
         'className': 'never',
-        'data':"publishing_group"},
+        'data':"publishing_group", 'defaultContent': 'N/A'},
         /*
         {//"visible": false,
          'render': function () {
