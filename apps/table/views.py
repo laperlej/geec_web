@@ -95,7 +95,6 @@ class DataView(View):
 
     def post(self, request):
         content = request.POST.get('datasets', '')
-        data = content.split("\n")
         response = HttpResponse(content)
         response['Content-Disposition'] = 'attachment; filename="dummy.txt"'
         return response
