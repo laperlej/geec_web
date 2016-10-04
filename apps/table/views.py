@@ -94,7 +94,7 @@ class DataView(View):
         return super(DataView, self).dispatch(*args, **kwargs)
 
     def post(self, request):
-        content = request.POST.get('datasets', '')
-        response = HttpResponse(content)
+        data = request.POST.get('datasets', '')
+        response = HttpResponse(data)
         response['Content-Disposition'] = 'attachment; filename="dummy.txt"'
         return response
