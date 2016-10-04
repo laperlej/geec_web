@@ -361,7 +361,7 @@ $(document).ready(function() {
   //handling the galaxy form
   $('#submit').on( "click", function () {
     var data = main_table.rows(':has(:checkbox:checked)').data();
-    var text = "@\n";
+    var text = release + "\n";
     for (i = 0; i < data.length; i++) {
       text += data[i].md5sum + "\n";
     }
