@@ -7,15 +7,13 @@ import json
 import os.path
 from collections import OrderedDict
 
-def column_content(json_path):
-    with open(json_path) as json_file:
-        content = json.load(json_file)
+def column_content(json_content):
     assays = OrderedDict()
     assay_cats = OrderedDict()
     cell_types = OrderedDict()
     cell_type_cats = OrderedDict()
     rel_groups = OrderedDict()
-    for dataset in content['datasets']:
+    for dataset in json_content['datasets']:
         assays[dataset['assay']] = None
         assay_cats[dataset['assay_category']] = None
         cell_types[dataset['cell_type']] = None
@@ -35,19 +33,36 @@ class SelectorCache(object):
         self.file = file
         self.json_update_time = 0
         self.options = {}
+        self.content = {}
+
+    def refactor_json(self):
+        new_content = {"datasets":{}}
+        for token in self.content["datasets"]:
+            new_content["datasets"][token["md5sum"]] = token
+        self.content = new_content
 
     def update(self):
         json_path = os.path.join(STATIC_DIR, self.file)
         modif_time = os.path.getmtime(json_path)
         if self.json_update_time < modif_time:
             self.json_update_time = modif_time
-            self.options = column_content(json_path)
+            with open(json_path) as json_file:
+                self.content = json.load(json_file)
+            self.options = column_content(self.content)
+            self.refactor_json()
 
 selector_cache = {}
 selector_cache["hg19_4-16"] = SelectorCache("hg19_4-16.json")
 selector_cache["hg19_3-16"] = SelectorCache("hg19_3-16.json")
 selector_cache["hg19_test"] = SelectorCache("hg19_test.json")
 selector_cache["saccer"] = SelectorCache("saccer.json")
+
+def slice_json(json_content, datasets):
+    output = {"datasets":{}}
+    for dataset in datasets:
+        output["datasets"][dataset] = json_content["datasets"][dataset]
+    return output
+
 
 # Create your views here.
 class MainView(View):
