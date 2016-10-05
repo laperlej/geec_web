@@ -60,7 +60,9 @@ selector_cache["saccer"] = SelectorCache("saccer.json")
 def slice_json(json_content, datasets):
     output = {"datasets":{}}
     for dataset in datasets:
-        output["datasets"][dataset] = json_content["datasets"][dataset]
+        token = json_content.get("datasets",{}).get(dataset, "")
+        if token:
+            output["datasets"][dataset] = token
     return output
 
 
@@ -95,7 +97,7 @@ class DataView(View):
 
     def post(self, request):
         data = request.POST.get('datasets', '').encode('ascii').split()
-        json_content = selector_cache[data[0]].content
+        json_content = selector_cache.get(data[0]).content
         datasets = data[1:]
         content = slice_json(json_content, datasets)
         response = HttpResponse(json.dumps(content))
