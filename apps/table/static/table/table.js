@@ -364,7 +364,7 @@ $(document).ready(function() {
     var text = release + "\n";
     for (i = 0; i < data.length; i++) {
       //text += data[i].md5sum + "\n";
-      text += i + "\n";
+      text += i + "\t";
     }
     $("#datasets").val(text);
     $("#galaxy-form").submit();
