@@ -62,7 +62,7 @@ def slice_json(json_content, datasets):
     for dataset in datasets:
         token = json_content.get("datasets",{}).get(dataset, "")
         if token:
-            output["datasets"][token["md5sum"]] = token
+            output["datasets"][token["id"]] = token
     return output
 
 
