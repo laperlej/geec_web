@@ -38,7 +38,7 @@ class SelectorCache(object):
     def refactor_json(self):
         new_content = {"datasets":{}}
         for token in self.content["datasets"]:
-            new_content["datasets"][token["md5sum"]] = token
+            new_content["datasets"][token["id"]] = token
         self.content = new_content
 
     def update(self):

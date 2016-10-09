@@ -363,7 +363,7 @@ $(document).ready(function() {
     var data = main_table.rows(':has(:checkbox:checked)').data();
     var text = release + "\n";
     for (i = 0; i < data.length; i++) {
-      text += data[i].md5sum + "\n";
+      text += data[i].id + "\n";
     }
     $("#datasets").val(text);
     $("#galaxy-form").submit();
