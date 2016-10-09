@@ -96,12 +96,12 @@ class DataView(View):
         return super(DataView, self).dispatch(*args, **kwargs)
 
     def post(self, request):
-        #data = request.POST.get('datasets', '').encode('ascii').split()
-        #json_content = selector_cache.get(data[0]).content
-        #datasets = data[1:]
-        #content = slice_json(json_content, datasets)
-        #response = HttpResponse(json.dumps(content))
-        data = request.POST.get('datasets', '')
-        response = HttpResponse(data)
+        data = request.POST.get('datasets', '').encode('ascii').split()
+        json_content = selector_cache.get(data[0]).content
+        datasets = data[1:]
+        content = slice_json(json_content, datasets)
+        response = HttpResponse(json.dumps(content))
+        #data = request.POST.get('datasets', '')
+        #response = HttpResponse(data)
         response['Content-Disposition'] = 'attachment; filename="dummy.txt"'
         return response
