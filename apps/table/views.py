@@ -54,8 +54,6 @@ class SelectorCache(object):
 selector_cache = {}
 selector_cache["hg19_4-16"] = SelectorCache("hg19_4-16.json")
 selector_cache["hg19_3-16"] = SelectorCache("hg19_3-16.json")
-selector_cache["hg19_test"] = SelectorCache("hg19_test.json")
-selector_cache["saccer"] = SelectorCache("saccer.json")
 
 def slice_json(json_content, datasets):
     output = {"datasets":{}}
