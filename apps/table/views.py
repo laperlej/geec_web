@@ -98,7 +98,7 @@ class DataView(View):
     def post(self, request):
         data = request.POST.get('datasets', '').encode('ascii').split()
         json_content = selector_cache.get(data[0]).content
-        datasets = [int(x) for x in data[1:]]
+        datasets = data[1:]
         content = slice_json(json_content, datasets)
         response = HttpResponse(json.dumps(content))
         #data = request.POST.get('datasets', '')
