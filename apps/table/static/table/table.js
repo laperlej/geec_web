@@ -367,7 +367,7 @@ $(document).ready(function() {
     }
     $("#datasets").val(text);
     $("#out_title").val($('#out_file_name').val());
-    $("#galaxy-form").submit();
+    //$("#galaxy-form").submit();
   });
 
   //show selected
