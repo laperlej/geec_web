@@ -366,7 +366,10 @@ $(document).ready(function() {
       text += data[i].id + "\n";
     }
     $("#datasets").val(text);
-    $("#out_title").val($('#out_file_name').val());
+    var out_file_name = $('#out_file_name').val();
+    if (out_file_name) {
+      $("#out_title").val(out_file_name);
+    }
     $("#galaxy-form").submit();
   });
 
