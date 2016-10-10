@@ -117,12 +117,22 @@
       <button id="show-all" class="btn btn-primary show-group disabled">Show all datasets</button>
       <button id="show-selected" class="btn btn-primary show-group">Show only selected</button>
     </div>
-    <div class="col-xs-8 nowrap">
-      <!--submit button-->
-      <button id="submit" class="btn btn-primary disabled pull-right"><span class="glyphicon glyphicon-check"></span> Send To Galaxy</button>
+    <div class="col-xs-4 nowrap text-right">
       <!--Dataset count-->
-      <label for="submit" id="counters" class="pull-right"><span id="shown-count">0</span> datasets displayed, <span id="select-count">0</span> selected <!--file name-->
-      <input type="text" class="form-control" placeholder="Filename" id="out_file_name"></label>
+      <label>
+        <span id="shown-count">0</span> datasets displayed, <span id="select-count">0</span> selected
+      </label>
+    </div>
+    <div class="col-xs-4 nowrap text-right">
+      <form class="form-inline">
+        <div class="form-group">
+          <!--file name-->
+          <input type="text" class="form-control" placeholder="Filename" id="out_file_name">
+          <!--submit button-->
+          <button id="submit" class="btn btn-primary disabled pull-right"><span class="glyphicon 
+          glyphicon-check"></span> Send To Galaxy</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
