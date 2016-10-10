@@ -55,12 +55,16 @@ selector_cache = {}
 selector_cache["hg19_4-16"] = SelectorCache("hg19_4-16.json")
 selector_cache["hg19_3-16"] = SelectorCache("hg19_3-16.json")
 
-def slice_json(json_content, datasets):
+def slice_json(json_content, datasets, release):
     output = {"datasets":{}}
+    count = 0
     for dataset in datasets:
         token = json_content.get("datasets",{}).get(dataset, "")
         if token:
+            count += 1
             output["datasets"][token["md5sum"]] = token
+    output["release"] = release
+    output["count"] = count
     return output
 
 
@@ -97,7 +101,7 @@ class DataView(View):
         data = request.POST.get('datasets', '').encode('ascii').split()
         json_content = selector_cache.get(data[0]).content
         datasets = data[1:]
-        content = slice_json(json_content, datasets)
+        content = slice_json(json_content, datasets, data[0])
         response = HttpResponse(json.dumps(content))
         #data = request.POST.get('datasets', '')
         #response = HttpResponse(data)
