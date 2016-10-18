@@ -140,10 +140,10 @@
 <form id="galaxy-form" action="{{galaxy_url}}" method="POST">
   <input type="HIDDEN" id="tool_id" name="tool_id" value="{{tool_id}}"/>
   <input type="HIDDEN" name="URL" value="{{ url }}data/">
-  <input type="HIDDEN" name="dbkey" value="hg19">
+  <input type="HIDDEN" name="dbkey" value="{{release}}">
   <input type="HIDDEN" name="URL_method" value="post">
   <input type="HIDDEN" id="datasets" name="datasets" value="">
-  <input type="HIDDEN" id="out_title" name="title" value="success">
+  <input type="HIDDEN" id="out_title" name="title" value="GeEC_dataset">
 </form>
 {% else %}
 <!--Warning if not from galaxy-->
