@@ -52,17 +52,17 @@ class SelectorCache(object):
             self.refactor_json()
 
 selector_cache = {}
-selector_cache["hg19_4-16"] = SelectorCache("hg19_4-16.json")
-selector_cache["hg19_3-16"] = SelectorCache("hg19_3-16.json")
+selector_cache["hg19_ihec_2016-04"] = SelectorCache("hg19_ihec_2016-04.json")
+selector_cache["hg19_ihec_2016-03"] = SelectorCache("hg19_ihec_2016-03.json")
 
 def slice_json(json_content, datasets, release):
-    output = {"datasets":{}}
+    output = {"datasets":[]}
     count = 0
     for dataset in datasets:
         token = json_content.get("datasets",{}).get(dataset, "")
         if token:
             count += 1
-            output["datasets"][token["md5sum"]] = token
+            output["datasets"].append(token)
     output["release"] = release
     output["count"] = count
     return output
@@ -76,7 +76,7 @@ class MainView(View):
         galaxy_url = request.GET.get('GALAXY_URL', '')
         tool_id = request.GET.get('tool_id', '')
         send_to_galaxy = request.GET.get('sendToGalaxy', '0')
-        release = request.GET.get('release', 'hg19_4-16')
+        release = request.GET.get('release', 'hg19_ihec_2016-04')
         url = request.build_absolute_uri(request.path)
         selector_cache[release].update()
         hg19_options = selector_cache[release].options
