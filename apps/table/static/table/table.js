@@ -368,7 +368,7 @@ $(document).ready(function() {
     $("#datasets").val(text);
     var out_file_name = $('#out_file_name').val();
     if (out_file_name) {
-      $("#out_title").val("GEeC_dataset_" + out_file_name);
+      $("#out_title").val("GeEC_datasets_" + out_file_name);
     }
     $("#galaxy-form").submit();
   });
