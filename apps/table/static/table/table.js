@@ -323,7 +323,7 @@ $(document).ready(function() {
     var regex = '';
     var list = $(column_selectors[column_idx-1]).val();
     if (list !== null) {
-      regex += list.join('|');
+      regex += list.join('|^');
     }
     regex = "(?=^" + regex + ")";
     return regex;
