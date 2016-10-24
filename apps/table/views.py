@@ -76,7 +76,7 @@ class MainView(View):
         galaxy_url = request.GET.get('GALAXY_URL', '')
         tool_id = request.GET.get('tool_id', '')
         send_to_galaxy = request.GET.get('sendToGalaxy', '0')
-        release = request.GET.get('release', 'hg19_ihec_2016-04')
+        release = request.GET.get('release', 'hg19_ihec_2016-03')
         url = request.build_absolute_uri(request.path)
         selector_cache[release].update()
         hg19_options = selector_cache[release].options
