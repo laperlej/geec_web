@@ -29,7 +29,7 @@ MODULE_DIR = os.path.dirname(os.path.realpath(__file__))
 STATIC_DIR = os.path.join(MODULE_DIR, 'static', 'table')
 
 class SelectorCache(object):
-    def __init__(self, file="hg19_ihec_2016-04.json"):
+    def __init__(self, file="hg19_IHEC_2016-04.json"):
         self.file = file
         self.json_update_time = 0
         self.options = {}
@@ -52,8 +52,9 @@ class SelectorCache(object):
             self.refactor_json()
 
 selector_cache = {}
-selector_cache["hg19_ihec_2016-04"] = SelectorCache("hg19_ihec_2016-04.json")
-selector_cache["hg19_ihec_2016-03"] = SelectorCache("hg19_ihec_2016-03.json")
+selector_cache["hg19_IHEC_2016-04"] = SelectorCache("hg19_IHEC_2016-04.json")
+selector_cache["hg19_IHEC_2016-03"] = SelectorCache("hg19_IHEC_2016-03.json")
+selector_cache["sacCer3_GEO_2016-07"] = SelectorCache("sacCer3_GEO_2016-07.json")
 
 def slice_json(json_content, datasets, release):
     output = {"datasets":[]}
@@ -76,7 +77,7 @@ class MainView(View):
         galaxy_url = request.GET.get('GALAXY_URL', '')
         tool_id = request.GET.get('tool_id', '')
         send_to_galaxy = request.GET.get('sendToGalaxy', '0')
-        release = request.GET.get('release', 'hg19_ihec_2016-03')
+        release = request.GET.get('release', 'hg19_IHEC_2016-03')
         url = request.build_absolute_uri(request.path)
         selector_cache[release].update()
         hg19_options = selector_cache[release].options
