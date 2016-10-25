@@ -29,7 +29,7 @@ MODULE_DIR = os.path.dirname(os.path.realpath(__file__))
 STATIC_DIR = os.path.join(MODULE_DIR, 'static', 'table')
 
 class SelectorCache(object):
-    def __init__(self, file="hg19_IHEC_2016-04.json"):
+    def __init__(self, file="hg19_IHEC_2016-03.json"):
         self.file = file
         self.json_update_time = 0
         self.options = {}
