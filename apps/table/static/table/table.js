@@ -164,7 +164,6 @@ $(document).ready(function() {
 
   //child table to generate on expension
   function format(data) {
-    alert(release);
     if (release == "sacCer3_GEO_2016-07") {
       return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
              '<tr>'+
