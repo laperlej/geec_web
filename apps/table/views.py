@@ -80,17 +80,17 @@ class MainView(View):
         release = request.GET.get('release', 'hg19_IHEC_2016-03')
         url = request.build_absolute_uri(request.path)
         selector_cache[release].update()
-        hg19_options = selector_cache[release].options
+        rel_options = selector_cache[release].options
         return render(request, 'table/table.html', {
             'galaxy_url': galaxy_url,
             'release': release,
             'tool_id': tool_id,
             'send_to_galaxy': send_to_galaxy,
-            'assays': hg19_options['assays'],
-            'assay_cats': hg19_options['assay_cats'],
-            'cell_types': hg19_options['cell_types'],
-            'cell_type_cats': hg19_options['cell_type_cats'],
-            'rel_groups': hg19_options['rel_groups'],
+            'assays': rel_options.get('assays', 'N/A'),
+            'assay_cats': rel_options.get('assay_cats', 'N/A'),
+            'cell_types': rel_options.get('cell_types', 'N/A'),
+            'cell_type_cats': rel_options.get('cell_type_cats', 'N/A'),
+            'rel_groups': rel_options.get('rel_groups', 'N/A'),
             'url': url})
 
 class DataView(View):
