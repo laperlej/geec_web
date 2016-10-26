@@ -164,16 +164,41 @@ $(document).ready(function() {
 
   //child table to generate on expension
   function format(data) {
-    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-          '<tr>'+
-              '<td>File Name:</td>'+
-              '<td>'+basename(data.file_name)+'</td>'+
-          '</tr>'+
-          '<tr>'+
-              '<td>Institution:</td>'+
-              '<td>'+data.publishing_group+'</td>'+
-          '</tr>'+
-          '</table>';
+    if (release == "sacCer3_GEO_2016-07") {
+      return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+             '<tr>'+
+                '<td>Treatment:</td>'+
+                '<td>'+data.treatment+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Sample description:</td>'+
+                '<td>'+data.sample_description+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Release date:</td>'+
+                '<td>'+data.release_date+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Quality:</td>'+
+                '<td>'+data.quality+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Url reference:</td>'+
+                '<td>'+data.url_reference+'</td>'+
+            '</tr>'+
+            '</table>';
+    } else {
+      return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+             '<tr>'+
+                '<td>File Name:</td>'+
+                '<td>'+basename(data.file_name)+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Institution:</td>'+
+                '<td>'+data.publishing_group+'</td>'+
+            '</tr>'+
+            '</table>';
+    }
   }
 
   function basename(path) {
@@ -323,7 +348,7 @@ $(document).ready(function() {
     var regex = '';
     var list = $(column_selectors[column_idx-1]).val();
     if (list !== null) {
-      regex += list.join('|');
+      regex += list.join('|^');
     }
     regex = "(?=^" + regex + ")";
     return regex;
@@ -361,11 +386,15 @@ $(document).ready(function() {
   //handling the galaxy form
   $('#submit').on( "click", function () {
     var data = main_table.rows(':has(:checkbox:checked)').data();
-    var text = "@\n";
+    var text = release + "\n";
     for (i = 0; i < data.length; i++) {
-      text += data[i].md5sum + "\n";
+      text += data[i].id + "\n";
     }
     $("#datasets").val(text);
+    var out_file_name = $('#out_file_name').val();
+    if (out_file_name) {
+      $("#out_title").val("GeEC_datasets_" + out_file_name);
+    }
     $("#galaxy-form").submit();
   });
 
