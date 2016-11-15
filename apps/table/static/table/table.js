@@ -36,7 +36,7 @@ $(document).ready(function() {
         {"data": "assay_category", 'defaultContent': 'N/A'},
         {"data": "cell_type", 'defaultContent': 'N/A'},
         {"data": "cell_type_category", 'defaultContent': 'N/A'},
-        {"data": "analysis_group", 'defaultContent': 'N/A'},
+        {"data": "releasing_group", 'defaultContent': 'N/A'},
         {"visible": false,
         'className': 'never',
         'data':"file_name", 'defaultContent': 'N/A'},
