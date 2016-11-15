@@ -39,7 +39,7 @@ $(document).ready(function() {
         {"data": "assay_category", 'defaultContent': 'N/A'},
         {"data": "cell_type", 'defaultContent': 'N/A'},
         {"data": "cell_type_category", 'defaultContent': 'N/A'},
-        {"data": "releasing_group", 'defaultContent': 'N/A'},
+        {"data": "publishing_group", 'defaultContent': 'N/A'},
         {"visible": false,
         'className': 'never',
         'data':"file_name", 'defaultContent': 'N/A'},
@@ -197,8 +197,8 @@ $(document).ready(function() {
                 '<td>'+basename(data.file_name)+'</td>'+
             '</tr>'+
             '<tr>'+
-                '<td>Institution:</td>'+
-                '<td>'+data.publishing_group+'</td>'+
+                '<td>Releasing Group:</td>'+
+                '<td>'+data.releasing_group+'</td>'+
             '</tr>'+
             '</table>';
     }
