@@ -18,7 +18,7 @@ def column_content(json_content):
         assay_cats[dataset.get('assay_category', 'N/A')] = None
         cell_types[dataset.get('cell_type', 'N/A')] = None
         cell_type_cats[dataset.get('cell_type_category', 'N/A')] = None
-        rel_groups[dataset.get('analysis_group', 'N/A')] = None
+        rel_groups[dataset.get('releasing_group', 'N/A')] = None
     return {'assays':sorted(assays),
             'assay_cats':sorted(assay_cats),
             'cell_types':sorted(cell_types),
@@ -54,6 +54,9 @@ class SelectorCache(object):
 selector_cache = {}
 selector_cache["hg19_IHEC_2016-04"] = SelectorCache("hg19_IHEC_2016-04.json")
 selector_cache["hg19_IHEC_2016-03"] = SelectorCache("hg19_IHEC_2016-03.json")
+selector_cache["hg19_IHEC_2016-11"] = SelectorCache("hg19_IHEC_2016-11.json")
+selector_cache["hg38_IHEC_2016-11"] = SelectorCache("hg38_IHEC_2016-11.json")
+selector_cache["mm10_IHEC_2016-11"] = SelectorCache("mm10_IHEC_2016-11.json")
 selector_cache["sacCer3_GEO_2016-07"] = SelectorCache("sacCer3_GEO_2016-07.json")
 
 def slice_json(json_content, datasets, release):
