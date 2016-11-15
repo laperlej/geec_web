@@ -4,6 +4,9 @@ $(document).ready(function() {
   //initialise DataTables plugin
   var main_table = $('#bw-table').DataTable( {
     //remove everything but the header and table
+    "language": {
+      "emptyTable": "Loading..."
+    }
     'sDom': 'Ht',
     "info": false,
     "scrollY": newTableHeight(),
