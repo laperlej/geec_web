@@ -6,7 +6,7 @@ $(document).ready(function() {
     //remove everything but the header and table
     "language": {
       "emptyTable": "Loading..."
-    }
+    },
     'sDom': 'Ht',
     "info": false,
     "scrollY": newTableHeight(),
