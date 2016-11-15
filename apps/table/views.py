@@ -18,7 +18,7 @@ def column_content(json_content):
         assay_cats[dataset.get('assay_category', 'N/A')] = None
         cell_types[dataset.get('cell_type', 'N/A')] = None
         cell_type_cats[dataset.get('cell_type_category', 'N/A')] = None
-        rel_groups[dataset.get('releasing_group', 'N/A')] = None
+        rel_groups[dataset.get('publishing_group', 'N/A')] = None
     return {'assays':sorted(assays),
             'assay_cats':sorted(assay_cats),
             'cell_types':sorted(cell_types),
