@@ -401,6 +401,12 @@ $(document).ready(function() {
     $("#galaxy-form").submit();
   });
 
+  $("#out_file_name").keyup(function(event){
+    if(event.keyCode == 13){
+        $("#submit").click();
+    }
+  });
+
   //show selected
   $('#show-selected').on('click', function() {
     toggleShowSelected();
