@@ -82,7 +82,11 @@ class MainView(View):
         send_to_galaxy = request.GET.get('sendToGalaxy', '0')
         release = request.GET.get('release', 'hg19_IHEC_2016-11')
         url = request.build_absolute_uri(request.path)
-        selector_cache[release].update()
+        selector = selector_cache.get(release)
+        if selector:
+            selector.update()
+        else:
+            selector_cache[release] = SelectorCache(release + ".json")
         rel_options = selector_cache[release].options
         return render(request, 'table/table.html', {
             'galaxy_url': galaxy_url,
