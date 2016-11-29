@@ -34,6 +34,7 @@ class SelectorCache(object):
         self.json_update_time = 0
         self.options = {}
         self.content = {}
+        self.update()
 
     def refactor_json(self):
         new_content = {"datasets":{}}
