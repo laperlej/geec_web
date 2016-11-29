@@ -52,12 +52,6 @@ class SelectorCache(object):
             self.refactor_json()
 
 selector_cache = {}
-selector_cache["hg19_IHEC_2016-04"] = SelectorCache("hg19_IHEC_2016-04.json")
-selector_cache["hg19_IHEC_2016-03"] = SelectorCache("hg19_IHEC_2016-03.json")
-selector_cache["hg19_IHEC_2016-11"] = SelectorCache("hg19_IHEC_2016-11.json")
-selector_cache["hg38_IHEC_2016-11"] = SelectorCache("hg38_IHEC_2016-11.json")
-selector_cache["mm10_IHEC_2016-11"] = SelectorCache("mm10_IHEC_2016-11.json")
-selector_cache["sacCer3_GEO_2016-07"] = SelectorCache("sacCer3_GEO_2016-07.json")
 
 def slice_json(json_content, datasets, release):
     output = {"datasets":[]}
