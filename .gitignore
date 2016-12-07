@@ -1,4 +1,6 @@
 deploy/
 /static/
-*.pyc
+.pyc
+.swp
+.DS_Store
 local_settings.py
