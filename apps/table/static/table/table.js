@@ -171,7 +171,7 @@ $(document).ready(function() {
       return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
              '<tr>'+
                 '<td>Treatment:</td>'+
-                '<td>'+data.treatment+'</td>'+
+                '<td>'+"+data.treatment+"+'</td>'+
             '</tr>'+
             '<tr>'+
                 '<td>Sample description:</td>'+
