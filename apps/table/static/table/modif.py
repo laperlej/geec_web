@@ -4,7 +4,10 @@ import json
 def main(filepath):
     file_names = {}
     content = json.load(open(filepath))
+    count = 0
     for dataset in content["datasets"]:
+        dataset["id"] = count
+        count += 1
         file_name = dataset["file_name"]
         while  file_name in file_names:
             #if filename ends with "_\d+$"
