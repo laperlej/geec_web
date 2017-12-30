@@ -175,7 +175,7 @@ $(document).ready(function() {
             '</tr>'+
             '<tr>'+
                 '<td>Sample description:</td>'+
-                '<td>'+data.sample_description+'</td>'+
+                '<td>'+"<xmp>"+data.sample_description+"</xmp>"+'</td>'+
             '</tr>'+
             '<tr>'+
                 '<td>Release date:</td>'+
