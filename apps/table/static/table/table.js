@@ -226,7 +226,7 @@ $(document).ready(function() {
                 '<td>'+data.quality+'</td>'+
             '</tr>'+
             '<tr>'+
-                '<td>Url reference:</td>'+
+                '<td>URL reference:</td>'+
                 '<td>'+'<a href="'+data.url_reference+'" target="_blank">'+data.url_reference+'</a>'+'</td>'+
             '</tr>'+
             '</table>';
