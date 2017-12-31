@@ -173,10 +173,10 @@ $(document).ready(function() {
     if ( row.child.isShown() ) {
       // close row if open
       row.child.hide();
-      } else {
-        // open row if closed
-        row.child(format(row.data()), 'child').show();
-      }
+    } else {
+      // open row if closed
+      row.child(format(row.data()), 'child').show();
+    }
   });
 
   /* old script to expand when user clicks anywhere on row
@@ -208,17 +208,17 @@ $(document).ready(function() {
   //child table to generate on expension
   function format(data) {
     if (release == "sacCer3_GEO_2016-07") {
-      return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+      return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left: 50px;">'+
              '<tr>'+
                 '<td>Treatment:</td>'+
                 '<td>'+data.treatment+'</td>'+
             '</tr>'+
             '<tr>'+
                 '<td>Sample description:</td>'+
-                '<td>'+data.sample_description+'</td>'+
+                '<td style="white-space: normal; max-width: 300px">'+data.sample_description+'</td>'+
             '</tr>'+
             '<tr>'+
-                '<td>Release date:</td>'+
+                '<td>Submission date:</td>'+
                 '<td>'+data.release_date+'</td>'+
             '</tr>'+
             '<tr>'+
@@ -227,7 +227,7 @@ $(document).ready(function() {
             '</tr>'+
             '<tr>'+
                 '<td>Url reference:</td>'+
-                '<td>'+data.url_reference+'</td>'+
+                '<td>'+'<a href="'+data.url_reference+'" target="_blank">'+data.url_reference+'</a>'+'</td>'+
             '</tr>'+
             '</table>';
     } else {

@@ -87,3 +87,7 @@ table.dataTable.display tbody tr.child {
 table.dataTable.display tbody tr table tr:hover {
   background: none;
 }
+
+.child {
+  color: green;
+}
