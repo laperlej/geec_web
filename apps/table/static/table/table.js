@@ -1,6 +1,84 @@
 $(document).ready(function() {
   $("#rel-select").val(release);
   var all_checkboxes;
+
+  //define columns for each species
+  var human_columns = [
+    //checkboxes
+    {'searchable': false,
+     'orderable': false,
+     'className': 'dt-center',
+     'width': 1,
+     'render': function () {
+       return '<input type="checkbox">';
+     }
+    },
+    //data
+    {"data": "assay", 'defaultContent': 'N/A'},
+    {"data": "assay_category", 'defaultContent': 'N/A'},
+    {"data": "cell_type", 'defaultContent': 'N/A'},
+    {"data": "cell_type_category", 'defaultContent': 'N/A'},
+    {"data": "publishing_group", 'defaultContent': 'N/A'},
+    {"visible": false,
+    'className': 'never',
+    'data':"file_name", 'defaultContent': 'N/A'},
+    {"visible": false,
+    'className': 'never',
+    'data':"publishing_group", 'defaultContent': 'N/A'},
+    //more info
+    {'width': 1,
+     'className': 'more-info dt-center',
+     'searchable': false,
+     'orderable': false,
+     'render': function () {
+      //return '<span class="glyphicon glyphicon-triangle-top"></span>';
+      return '<a class="more" href=#><i>more...</i></a>';
+     }
+    }
+  ]
+
+  var saccer_columns = [
+    //checkboxes
+    {'searchable': false,
+    'orderable': false,
+    'className': 'dt-center',
+    'width': 1,
+    'render': function () {
+      return '<input type="checkbox">';
+    }
+    },
+    //data
+    {"data": "assay", 'defaultContent': 'N/A'},
+    {"data": "assay_category", 'defaultContent': 'N/A'},
+    {"data": "cell_type", 'defaultContent': 'N/A'},
+    {"data": "cell_type_category", 'defaultContent': 'N/A'},
+    {"data": "publishing_group", 'defaultContent': 'N/A'},
+    {"visible": false,
+    'className': 'never',
+    'data':"file_name", 'defaultContent': 'N/A'},
+    {"visible": false,
+    'className': 'never',
+    'data':"publishing_group", 'defaultContent': 'N/A'},
+    //more info
+    {'width': 1,
+    'className': 'more-info dt-center',
+    'searchable': false,
+    'orderable': false,
+    'render': function () {
+      //return '<span class="glyphicon glyphicon-triangle-top"></span>';
+      return '<a class="more" href=#><i>more...</i></a>';
+    }
+    }
+  ]
+
+  //choose columns based on release
+  var columns
+  if (release == "sacCer3_GEO_2016-07") {
+    columns = saccer_columns
+  } else {
+    columns = human_columns
+  }
+
   //initialise DataTables plugin
   var main_table = $('#bw-table').DataTable( {
     //remove everything but the header and table
@@ -24,45 +102,7 @@ $(document).ready(function() {
       "dataSrc": "datasets"
     },
     //associate json elements to columns(in order)
-    "columns": [
-        //checkboxes
-        {'searchable': false,
-         'orderable': false,
-         'className': 'dt-center',
-         'width': 1,
-         'render': function () {
-           return '<input type="checkbox">';
-         }
-        },
-        //data
-        {"data": "assay", 'defaultContent': 'N/A'},
-        {"data": "assay_category", 'defaultContent': 'N/A'},
-        {"data": "cell_type", 'defaultContent': 'N/A'},
-        {"data": "cell_type_category", 'defaultContent': 'N/A'},
-        {"data": "publishing_group", 'defaultContent': 'N/A'},
-        {"visible": false,
-        'className': 'never',
-        'data':"file_name", 'defaultContent': 'N/A'},
-        {"visible": false,
-        'className': 'never',
-        'data':"publishing_group", 'defaultContent': 'N/A'},
-        /*
-        {//"visible": false,
-         'render': function () {
-           return data.releasing_group+' '+data.institution;
-         }
-        },*/
-        //more info
-        {'width': 1,
-         'className': 'more-info dt-center',
-         'searchable': false,
-         'orderable': false,
-         'render': function () {
-          //return '<span class="glyphicon glyphicon-triangle-top"></span>';
-          return '<a class="more" href=#><i>more...</i></a>';
-         }
-        }
-      ],
+    "columns": columns,
     //order on first data column
     'order': [[1, 'asc']],
     "fnInitComplete": function(oSettings, json) {
@@ -171,11 +211,11 @@ $(document).ready(function() {
       return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
              '<tr>'+
                 '<td>Treatment:</td>'+
-                '<td>'+"+data.treatment+"+'</td>'+
+                '<td>'+data.treatment+'</td>'+
             '</tr>'+
             '<tr>'+
                 '<td>Sample description:</td>'+
-                '<td>'+"<xmp>"+data.sample_description+"</xmp>"+'</td>'+
+                '<td>'+data.sample_description+'</td>'+
             '</tr>'+
             '<tr>'+
                 '<td>Release date:</td>'+

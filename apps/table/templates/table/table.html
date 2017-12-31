@@ -22,6 +22,7 @@
             <option value='hg19_IHEC_2016-11' selected="True">hg19_IHEC_2016-11</option>
             <option value='hg38_IHEC_2016-11' selected="False">hg38_IHEC_2016-11</option>
             <option value='mm10_IHEC_2016-11' selected="False">mm10_IHEC_2016-11</option>
+            <option value='sacCer3_GEO_2016-07' selected="False">sacCer3_GEO_2016-07</option>
             <!--<option value='hg19_IHEC_2016-04' selected="False">hg19_IHEC_2016-04</option>-->
           </select>
         </div>
@@ -64,35 +65,35 @@
               <th></th>
               <th>
                 <select class="select2" id="assay-select" placeholder="Assay" multiple="multiple">
-                  {% for assay in assays %}
-                    <option value="{{assay}}">{{assay}}</option>
+                  {% for a in assay %}
+                    <option value="{{assay}}">{{a}}</option>
                   {% endfor %}
                 </select>
               </th>
               <th>
                 <select class="select2" id="assay-cat-select" placeholder="Assay Category" multiple="multiple">
-                  {% for assay_cat in assay_cats %}
+                  {% for assay_cat in assay_category %}
                     <option value="{{assay_cat}}">{{assay_cat}}</option>
                   {% endfor %}
                 </select>
               </th>
               <th>
                 <select class="select2" id="cell-type-select" placeholder="Cell Type" multiple="multiple">
-                  {% for cell_type in cell_types %}
-                    <option value="{{cell_type}}">{{cell_type}}</option>
+                  {% for type in cell_type %}
+                    <option value="{{cell_type}}">{{type}}</option>
                   {% endfor %}
                 </select>
               </th>
               <th>
                 <select class="select2" id="cell-type-cat-select" placeholder="Cell Type Category" multiple="multiple">
-                  {% for cell_type_cat in cell_type_cats %}
+                  {% for cell_type_cat in cell_type_category %}
                     <option value="{{cell_type_cat}}">{{cell_type_cat}}</option>
                   {% endfor %}
                 </select>
               </th>
               <th>
                 <select class="select2" id="rel-group-select" placeholder="Releasing Group" multiple="multiple">
-                  {% for rel_group in rel_groups %}
+                  {% for rel_group in publishing_group %}
                     <option value="{{rel_group}}">{{rel_group}}</option>
                   {% endfor %}
                 </select>
