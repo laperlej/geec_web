@@ -71,7 +71,7 @@ class MainView(View):
         galaxy_url = request.GET.get('GALAXY_URL', '')
         tool_id = request.GET.get('tool_id', '')
         send_to_galaxy = request.GET.get('sendToGalaxy', '0')
-        release = request.GET.get('release', 'hg19_IHEC_2016-11')
+        release = request.GET.get('release', 'hg19_IHEC_2017-10')
         url = request.build_absolute_uri(request.path)
         selector = selector_cache.get(release)
         if selector:
