@@ -2,7 +2,6 @@
 
 ###installation
 ```
-sudo apt-get install postgresql-9.4
 pip install -r requirements.txt
 ```
 
