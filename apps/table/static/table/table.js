@@ -304,7 +304,7 @@ $(document).ready(function() {
   }
 
   //column selectors
-  column_selectors = ['#assay-select', '#assay-cat-select', '#cell-type-select', '#cell-type-cat-select', '#rel-group-select'];
+  column_selectors = ['#assay-select', '#assay-cat-select', '#cell-type-select', '#cell-type-cat-select', '#pub-group-select'];
 
   //handle column selectors
   $('#assay-select').on('change', function() {
@@ -327,7 +327,7 @@ $(document).ready(function() {
     main_table.draw();
     updateShownCount();
   });
-  $('#rel-group-select').on('change', function() {
+  $('#pub-group-select').on('change', function() {
     handleSelectionChange(5);
     main_table.draw();
     updateShownCount();

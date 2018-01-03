@@ -38,7 +38,7 @@
         <option value="2">Assay Category</option>
         <option value="3">Cell Type</option>
         <option value="4">Cell Type Category</option>
-        <option value="5">Releasing Group</option>
+        <option value="5">Publishing Group</option>
         <option value="6">File Name</option>
         <option value="7">Institution</option>
       </select>
@@ -93,9 +93,9 @@
                 </select>
               </th>
               <th>
-                <select class="select2" id="rel-group-select" placeholder="Releasing Group" multiple="multiple">
-                  {% for rel_group in publishing_group %}
-                    <option value="{{rel_group}}">{{rel_group}}</option>
+                <select class="select2" id="pub-group-select" placeholder="Publishing Group" multiple="multiple">
+                  {% for pub_group in publishing_group %}
+                    <option value="{{pub_group}}">{{pub_group}}</option>
                   {% endfor %}
                 </select>
               </th>
@@ -106,7 +106,7 @@
               <th>Assay Category</th>
               <th>Cell Type</th>
               <th>Cell Type Category</th>
-              <th>Releasing Group</th>
+              <th>Publishing Group</th>
               <th>File Name</th>
               <th>Institution</th>
               <th></th>
