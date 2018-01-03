@@ -378,10 +378,10 @@ $(document).ready(function() {
 
   function getSearchRegex(column_idx) {
     var regex = '';
-    if ($('#column-select').val == column_idx) {
+    if ($('#column-select').val() == column_idx) {
       var search_terms = search_content.split(' ');
       for (var i = 0; i < search_terms.length; ++i) {
-        regex += "(?=.*" + escapeRegex(search_terms[i]) + ")";
+        regex += "(?=.*" + search_terms[i] + ")";
       }
     }
     return regex;
@@ -391,9 +391,11 @@ $(document).ready(function() {
     var regex = '';
     var list = $(column_selectors[column_idx-1]).val();
     if (list !== null) {
-      regex += list.join('|^');
+      regex += list.join('$|^');
+      regex = "(?=^" + regex + "$)";
+    } else {
+      regex = "(.*)"
     }
-    regex = "(?=^" + regex +"$)";
     return regex;
   }
 
@@ -407,9 +409,9 @@ $(document).ready(function() {
 
   function updateFilter(column_idx) {
     var regex = getRegex(column_idx);
+    console.log(regex);
     main_table.column(column_idx).search(regex, true, false);
   }
-
 
   //handle scrolling
   $(window).bind('resize', function () {
