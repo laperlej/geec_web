@@ -340,7 +340,6 @@ $(document).ready(function() {
     }
     //for every column
     for (var i = 1; i <= 5; ++i) {
-      console.log("loop: " + String(i));
       //if not the column that changed
       if (i != column_idx) {
         //apply filter as only search bar
@@ -397,6 +396,7 @@ $(document).ready(function() {
     } else {
       regex = "(.*)"
     }
+    console.log(regex)
     return regex;
   }
 
@@ -410,7 +410,6 @@ $(document).ready(function() {
 
   function updateFilter(column_idx) {
     var regex = getRegex(column_idx);
-    console.log(regex);
     main_table.column(column_idx).search(regex, true, false);
   }
 
