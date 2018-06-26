@@ -337,10 +337,10 @@ $(document).ready(function() {
     //apply new filter
     if (column_idx !== 0) {
         updateFilter(column_idx);
-        console.log(column_idx);
     }
     //for every column
     for (var i = 1; i <= 5; ++i) {
+      console.log(i);
       //if not the column that changed
       if (i != column_idx) {
         //apply filter as only search bar
