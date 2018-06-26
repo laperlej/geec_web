@@ -337,6 +337,7 @@ $(document).ready(function() {
     //apply new filter
     if (column_idx !== 0) {
         updateFilter(column_idx);
+        console.log(column_idx);
     }
     //for every column
     for (var i = 1; i <= 5; ++i) {
@@ -396,7 +397,6 @@ $(document).ready(function() {
     } else {
       regex = "(.*)"
     }
-    console.log(regex)
     return regex;
   }
 
