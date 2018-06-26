@@ -340,13 +340,11 @@ $(document).ready(function() {
     }
     //for every column
     for (var i = 1; i <= 5; ++i) {
-      console.log(i);
-      console.log("looking for: "+ String(column_idx));
       //if not the column that changed
       if (i != column_idx) {
-        console.log("in: "+String(i));
         //apply filter as only search bar
         if ($(column_selectors[i-1]).val() !== null) {
+            console.log("in: "+String(i));
             applyFilter(getSearchRegex(i), i);
             updateSelectionOptions(i);
             updateFilter(i);
