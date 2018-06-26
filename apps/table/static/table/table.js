@@ -341,7 +341,7 @@ $(document).ready(function() {
     //for every column
     for (var i = 1; i <= 5; ++i) {
       console.log(i);
-      console.log(column_idx);
+      console.log("looking for: "+ String(column_idx));
       //if not the column that changed
       if (i != column_idx) {
         console.log("in: "+String(i));
