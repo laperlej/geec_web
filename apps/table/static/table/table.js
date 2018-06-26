@@ -14,17 +14,17 @@ $(document).ready(function() {
      }
     },
     //data
-    {"data": "assay", 'defaultContent': 'NA'},
-    {"data": "assay_category", 'defaultContent': 'NA'},
-    {"data": "cell_type", 'defaultContent': 'NA'},
-    {"data": "cell_type_category", 'defaultContent': 'NA'},
-    {"data": "publishing_group", 'defaultContent': 'NA'},
+    {"data": "assay", 'defaultContent': 'N/A'},
+    {"data": "assay_category", 'defaultContent': 'N/A'},
+    {"data": "cell_type", 'defaultContent': 'N/A'},
+    {"data": "cell_type_category", 'defaultContent': 'N/A'},
+    {"data": "publishing_group", 'defaultContent': 'N/A'},
     {"visible": false,
     'className': 'never',
-    'data':"file_name", 'defaultContent': 'NA'},
+    'data':"file_name", 'defaultContent': 'N/A'},
     {"visible": false,
     'className': 'never',
-    'data':"publishing_group", 'defaultContent': 'NA'},
+    'data':"publishing_group", 'defaultContent': 'N/A'},
     //more info
     {'width': 1,
      'className': 'more-info dt-center',
@@ -48,17 +48,17 @@ $(document).ready(function() {
     }
     },
     //data
-    {"data": "assay", 'defaultContent': 'NA'},
-    {"data": "assay_category", 'defaultContent': 'NA'},
-    {"data": "cell_type", 'defaultContent': 'NA'},
-    {"data": "cell_type_category", 'defaultContent': 'NA'},
-    {"data": "publishing_group", 'defaultContent': 'NA'},
+    {"data": "assay", 'defaultContent': 'N/A'},
+    {"data": "assay_category", 'defaultContent': 'N/A'},
+    {"data": "cell_type", 'defaultContent': 'N/A'},
+    {"data": "cell_type_category", 'defaultContent': 'N/A'},
+    {"data": "publishing_group", 'defaultContent': 'N/A'},
     {"visible": false,
     'className': 'never',
-    'data':"file_name", 'defaultContent': 'NA'},
+    'data':"file_name", 'defaultContent': 'N/A'},
     {"visible": false,
     'className': 'never',
-    'data':"publishing_group", 'defaultContent': 'NA'},
+    'data':"publishing_group", 'defaultContent': 'N/A'},
     //more info
     {'width': 1,
     'className': 'more-info dt-center',
@@ -341,8 +341,10 @@ $(document).ready(function() {
     //for every column
     for (var i = 1; i <= 5; ++i) {
       console.log(i);
+      console.log(column_idx);
       //if not the column that changed
       if (i != column_idx) {
+        console.log("in: "+String(i));
         //apply filter as only search bar
         if ($(column_selectors[i-1]).val() !== null) {
             applyFilter(getSearchRegex(i), i);
