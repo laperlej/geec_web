@@ -340,6 +340,7 @@ $(document).ready(function() {
     }
     //for every column
     for (var i = 1; i <= 5; ++i) {
+      console.log("loop: " + String(i));
       //if not the column that changed
       if (i != column_idx) {
         //apply filter as only search bar
@@ -384,7 +385,6 @@ $(document).ready(function() {
         regex += "(?=.*" + search_terms[i] + ")";
       }
     }
-    console.log(regex);
     return regex;
   };
 
