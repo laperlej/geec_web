@@ -14,17 +14,17 @@ $(document).ready(function() {
      }
     },
     //data
-    {"data": "assay", 'defaultContent': 'N/A'},
-    {"data": "assay_category", 'defaultContent': 'N/A'},
-    {"data": "cell_type", 'defaultContent': 'N/A'},
-    {"data": "cell_type_category", 'defaultContent': 'N/A'},
-    {"data": "publishing_group", 'defaultContent': 'N/A'},
+    {"data": "assay", 'defaultContent': 'NA'},
+    {"data": "assay_category", 'defaultContent': 'NA'},
+    {"data": "cell_type", 'defaultContent': 'NA'},
+    {"data": "cell_type_category", 'defaultContent': 'NA'},
+    {"data": "publishing_group", 'defaultContent': 'NA'},
     {"visible": false,
     'className': 'never',
-    'data':"file_name", 'defaultContent': 'N/A'},
+    'data':"file_name", 'defaultContent': 'NA'},
     {"visible": false,
     'className': 'never',
-    'data':"publishing_group", 'defaultContent': 'N/A'},
+    'data':"publishing_group", 'defaultContent': 'NA'},
     //more info
     {'width': 1,
      'className': 'more-info dt-center',
@@ -48,17 +48,17 @@ $(document).ready(function() {
     }
     },
     //data
-    {"data": "assay", 'defaultContent': 'N/A'},
-    {"data": "assay_category", 'defaultContent': 'N/A'},
-    {"data": "cell_type", 'defaultContent': 'N/A'},
-    {"data": "cell_type_category", 'defaultContent': 'N/A'},
-    {"data": "publishing_group", 'defaultContent': 'N/A'},
+    {"data": "assay", 'defaultContent': 'NA'},
+    {"data": "assay_category", 'defaultContent': 'NA'},
+    {"data": "cell_type", 'defaultContent': 'NA'},
+    {"data": "cell_type_category", 'defaultContent': 'NA'},
+    {"data": "publishing_group", 'defaultContent': 'NA'},
     {"visible": false,
     'className': 'never',
-    'data':"file_name", 'defaultContent': 'N/A'},
+    'data':"file_name", 'defaultContent': 'NA'},
     {"visible": false,
     'className': 'never',
-    'data':"publishing_group", 'defaultContent': 'N/A'},
+    'data':"publishing_group", 'defaultContent': 'NA'},
     //more info
     {'width': 1,
     'className': 'more-info dt-center',
@@ -438,7 +438,7 @@ $(document).ready(function() {
     $("#datasets").val(text);
     var out_file_name = $('#out_file_name').val();
     if (out_file_name) {
-      $("#out_title").val("GeEC_datasets_" + out_file_name);
+      $("#out_title").val("epiGeEC_datasets_" + out_file_name);
     }
     $("#galaxy-form").submit();
   });
