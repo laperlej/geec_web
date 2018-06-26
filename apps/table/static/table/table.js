@@ -384,6 +384,7 @@ $(document).ready(function() {
         regex += "(?=.*" + search_terms[i] + ")";
       }
     }
+    console.log(regex);
     return regex;
   };
 
