@@ -344,7 +344,6 @@ $(document).ready(function() {
       if (i != column_idx) {
         //apply filter as only search bar
         if ($(column_selectors[i-1]).val() !== null) {
-            console.log("in: "+String(i));
             applyFilter(getSearchRegex(i), i);
             updateSelectionOptions(i);
             updateFilter(i);
