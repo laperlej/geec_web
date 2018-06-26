@@ -409,7 +409,6 @@ $(document).ready(function() {
 
   function updateFilter(column_idx) {
     var regex = getRegex(column_idx);
-    console.log(regex);
     main_table.column(column_idx).search(regex, true, false);
   }
 
@@ -438,7 +437,7 @@ $(document).ready(function() {
     $("#datasets").val(text);
     var out_file_name = $('#out_file_name').val();
     if (out_file_name) {
-      $("#out_title").val("GeEC_datasets_" + out_file_name);
+      $("#out_title").val("epiGeEC_datasets_" + out_file_name);
     }
     $("#galaxy-form").submit();
   });
