@@ -10,9 +10,10 @@ COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY apache2.conf /etc/apache2/apache2.conf
 COPY . /geec_web
 RUN chmod 777 /geec_web
+WORKDIR
 RUN pip install virtualenv
 RUN python -m virtualenv venv
-RUN venv/bin/activate && \
+RUN . venv/bin/activate && \
 pip install -r requirements.txt && \
 python manage.py migrate &&\
 python manage.py collectstatic --noinput
