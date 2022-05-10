@@ -1,23 +1,23 @@
 # Django_base
 
-###Docker
+### Docker
 ```
 docker pull laperlej/geec_web:latest
 docker run -p 8000:8000 --rm -it geec_web
 ```
 
-###Local Installation
+### Local Installation
 ```
 pip install -r requirements.txt
 ```
 
-###config
+### config
 ```
 cd geec_web/settings
 cp production.py local_settings.py
 ```
 
-###Usage
+### Usage
 ```
 fab deploy_local
 ```
