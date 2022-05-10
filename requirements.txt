@@ -1,2 +1,4 @@
-Django
+django
 whitenoise
+gunicorn
+psycopg2

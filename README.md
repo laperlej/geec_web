@@ -1,6 +1,12 @@
 # Django_base
 
-###installation
+###Docker
+```
+docker pull laperlej/geec_web:latest
+docker run -p 8000:8000 --rm -it geec_web
+```
+
+###Local Installation
 ```
 pip install -r requirements.txt
 ```
