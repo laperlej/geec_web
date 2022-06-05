@@ -5,6 +5,6 @@ from django.core.wsgi import get_wsgi_application
 sys.path.append('/home/galaxy/geec_web/geec_web')
 sys.path.append("/home/galaxy/geec_web/Library/Python2.7/bin")
 sys.path.append("/home/galaxy/geec_web/.local/bin")
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "geec_web.settings.base")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "geec_web.settings.production")
 
 application = get_wsgi_application()
