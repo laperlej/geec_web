@@ -1,6 +1,6 @@
 import React from 'react'
-import { MainTable } from '../components/maintable'
+import { MainPage } from '../components/mainPage'
 
-const handler = () => <MainTable />
+const handler = () => <MainPage />
 
 export default handler

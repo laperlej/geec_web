@@ -12,20 +12,7 @@ const nextConfig = {
     experimental: {
       outputStandalone: 'true'
     }
-  }),
-  experimental: {
-    workerThreads: false,
-    cpus: 1
-  },
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/solver',
-        permanent: true
-      }
-    ]
-  }
+  })
 }
 
 module.exports = withBundleAnalyzer(withMDX(nextConfig))
