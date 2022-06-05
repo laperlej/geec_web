@@ -1,4 +1,4 @@
-from base import *
+from geec_web.settings.base import *
 
 DEBUG = False
 CSRF_COOKIE_SECURE = True
