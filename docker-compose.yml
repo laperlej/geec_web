@@ -1,0 +1,10 @@
+version: '3.2'
+services:
+  dev_server:
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    image: node:18-alpine
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/app/
