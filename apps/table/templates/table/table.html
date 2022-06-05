@@ -144,7 +144,7 @@
 {% if request.GET.sendToGalaxy %}
 <form id="galaxy-form" action="{{galaxy_url}}" method="POST">
   <input type="HIDDEN" id="tool_id" name="tool_id" value="{{tool_id}}"/>
-  <input type="HIDDEN" name="URL" value="{{ url }}data/">
+  <input type="HIDDEN" name="URL" value="{{ abs_url }}data/">
   <input type="HIDDEN" name="dbkey" value="{{release}}">
   <input type="HIDDEN" name="URL_method" value="post">
   <input type="HIDDEN" id="datasets" name="datasets" value="">

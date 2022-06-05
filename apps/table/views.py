@@ -72,7 +72,8 @@ class MainView(View):
         tool_id = request.GET.get('tool_id', '')
         send_to_galaxy = request.GET.get('sendToGalaxy', '0')
         release = request.GET.get('release', 'hg19_IHEC_2017-10')
-        url = request.build_absolute_uri(request.path)
+        url = "/"
+        abs_url = request.build_absolute_uri(request.path)
         selector = selector_cache.get(release)
         if selector:
             selector.update()
@@ -83,7 +84,8 @@ class MainView(View):
             'release': release,
             'tool_id': tool_id,
             'send_to_galaxy': send_to_galaxy,
-            'url': url}
+            'url': url,
+            'abs_url': abs_url}
         data = rel_options.copy()
         data.update(base_data)
         return render(request, 'table/table.html', data)
