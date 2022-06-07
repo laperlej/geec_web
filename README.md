@@ -1,4 +1,7 @@
-# Django_base
+# Geec Web
+![docker version badge](https://img.shields.io/docker/v/jlaperle/geec_web?color=blue&sort=semver)
+![github workflow badge](https://img.shields.io/github/workflow/status/laperlej/geec_web/CI/master)
+
 
 ### Docker
 ```
@@ -15,13 +18,4 @@ pip install -r requirements.txt
 ```
 cd geec_web/settings
 cp production.py local_settings.py
-```
-
-### Usage
-```
-fab deploy_local
-```
-or 
-```
-fab deploy_prod
 ```
