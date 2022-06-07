@@ -80,12 +80,12 @@ class MainView(View):
         else:
             selector_cache[release] = SelectorCache(release + ".json")
         rel_options = selector_cache[release].options
-        base_data = {'galaxy_url': galaxy_url,
+        base_data = {'galaxy_url': galaxy_url.replace("http://", "https://"),
             'release': release,
             'tool_id': tool_id,
             'send_to_galaxy': send_to_galaxy,
             'url': url,
-            'abs_url': abs_url}
+            'abs_url': abs_url.replace("http://", "https://")}
         data = rel_options.copy()
         data.update(base_data)
         return render(request, 'table/table.html', data)
