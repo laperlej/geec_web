@@ -1,6 +1,6 @@
 # Geec Web
-![docker version badge](https://img.shields.io/docker/v/jlaperle/geec_web?color=blue&sort=semver?)
-![github workflow badge](https://img.shields.io/github/workflow/status/laperlej/geec_web/CI/master?)
+![docker version badge](https://img.shields.io/docker/v/jlaperle/geec_web?color=blue&sort=semver)
+![github workflow badge](https://img.shields.io/github/workflow/status/laperlej/geec_web/CI/master)
 
 
 ### Docker
