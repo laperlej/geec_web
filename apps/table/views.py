@@ -96,10 +96,13 @@ class DataView(View):
         return super(DataView, self).dispatch(*args, **kwargs)
 
     def post(self, request):
-        data = request.POST.get('datasets', '').encode('ascii').split()
-        json_content = selector_cache.get(data[0]).content
-        datasets = data[1:]
-        content = slice_json(json_content, datasets, data[0])
+        '{datasets: "hg19_IHEC_2017-10 5 "}'
+        data = request.POST.get('datasets', '').split()
+        release = data[0]
+        dataset_ids = data[1:]
+        selector_cache[release] = SelectorCache(release + ".json")
+        json_content = selector_cache.get(release).content
+        content = slice_json(json_content, dataset_ids, release)
         response = HttpResponse(json.dumps(content))
         #data = request.POST.get('datasets', '')
         #response = HttpResponse(data)
